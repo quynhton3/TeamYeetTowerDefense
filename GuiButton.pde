@@ -1,4 +1,7 @@
-GuiButton hoveringIcon;
+GuiButton hoveringButton;
+TowerIcon heldIcon;
+
+boolean dragging = false;
 
 // This class creates a gui button
 class GuiButton {
@@ -26,20 +29,20 @@ class GuiButton {
     rect(x,y,xSize,ySize);
   }
   
-  // Check if the player is hoving on this icon
+  // Check if the player is hovering over this icon
   void checkHover() {
-    float xHalf = xSize / 2;
-    float yHalf = ySize / 2;
-    if (mouseX > this.x - xHalf
-      && mouseX < this.x + yHalf
-      && mouseY > this.y - yHalf
-      && mouseY < this.y + yHalf) {
-      hoveringIcon = this;
-      hovering = true;
-    }
-    else {
-      if (hoveringIcon == this) {
-        hoveringIcon = null;
+    if (!dragging) {
+      float xHalf = xSize / 2;
+      float yHalf = ySize / 2;
+      if (mouseX > this.x - xHalf
+        && mouseX < this.x + yHalf
+        && mouseY > this.y - yHalf
+        && mouseY < this.y + yHalf) {
+        hoveringButton = this;
+        hovering = true;
+      }
+      else if (hoveringButton == this) {
+        hoveringButton = null;
         hovering = false;
       }
     }
@@ -51,4 +54,12 @@ class TowerIcon extends GuiButton {
   TowerIcon(float x, float y, float xSize, float ySize) {
     super(x,y,xSize,ySize);
   }
+}
+
+void mouseDragged() {
+  dragging = true;
+}
+
+void mouseReleased() {
+  dragging = false;
 }
