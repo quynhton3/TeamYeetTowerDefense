@@ -25,7 +25,7 @@ class GuiButton {
     rectMode(CENTER);
     noStroke();
     // Draw a simple box that turns grey when hovered over
-    fill(hovering ? 100 : 0);
+    fill(hovering ? 180 : 255);
     rect(x,y,xSize,ySize);
   }
   
@@ -54,10 +54,16 @@ class TowerIcon extends GuiButton {
   TowerIcon(float x, float y, float xSize, float ySize) {
     super(x,y,xSize,ySize);
   }
+  
+  void update() {
+    super.update();
+  }
 }
 
 void mouseDragged() {
   dragging = true;
+  
+  
 }
 
 void mouseReleased() {

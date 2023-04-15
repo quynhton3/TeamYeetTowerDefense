@@ -4,6 +4,7 @@ Player player;
 Pathfinder pathfinder;
 Tile tile;
 boolean isExisting; 
+TowerIcon testIcon;
 void setup() {
   size(926, 428);
   TileHelper.app = this;
@@ -11,6 +12,7 @@ void setup() {
   player = new Player();
   pathfinder = new Pathfinder();
   tile = new Tile();
+  testIcon = new TowerIcon(40,height - 40,20,20);
 }
 void draw() {
   // UPDATE:
@@ -29,6 +31,7 @@ void draw() {
 
     tile.hover = true; //
   }
+  rectMode(CORNER);
   rect(0, height - 100, width, 500);
 
   // TODO: draw a little ellipse in the tile's center
@@ -47,6 +50,9 @@ void draw() {
   text(s2, 10, 30);
   text(s3, 10, 45);
   text(s4, 10, 60);
+  
+  testIcon.update();
+  testIcon.draw();
 }
 
 boolean MouseInTiles() {
