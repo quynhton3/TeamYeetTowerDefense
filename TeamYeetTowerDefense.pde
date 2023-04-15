@@ -12,7 +12,7 @@ void setup() {
   player = new Player();
   pathfinder = new Pathfinder();
   tile = new Tile();
-  testIcon = new TowerIcon(40,height - 40,20,20);
+  testIcon = new TowerIcon(40,height - 40,50,50);
 }
 void draw() {
   // UPDATE:

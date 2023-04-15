@@ -1,7 +1,19 @@
+// This tab has most of the code for gui classes and tower dragging
+
+// Button that's currently being hovered over
 GuiButton hoveringButton;
+
+// Previous tower that was hovered over
+TowerIcon hoveringTower;
+
+// Tower that's currently being dragged
 TowerIcon heldIcon;
 
+// Is the player currently dragging their mouse?
 boolean dragging = false;
+
+// Should towers snap to the game grid?
+boolean snapTowersToGrid = true;
 
 // This class creates a gui button
 class GuiButton {
@@ -29,8 +41,9 @@ class GuiButton {
     rect(x,y,xSize,ySize);
   }
   
-  // Check if the player is hovering over this icon
+  // Check if the player is hovering over this button
   void checkHover() {
+    // Don't check for hovering if the player is dragging their mouse
     if (!dragging) {
       float xHalf = xSize / 2;
       float yHalf = ySize / 2;
@@ -57,13 +70,52 @@ class TowerIcon extends GuiButton {
   
   void update() {
     super.update();
+    if (hovering) {
+      hoveringTower = this;
+    }
+    if (heldIcon == this) {
+      // Move tower with mouse
+      if (dragging) {
+        drawFakeTower();
+      }
+      // Release tower
+      else {
+        heldIcon = null;
+        
+        float newXPos = mouseX;
+        float newYPos = mouseY;
+        
+        if (snapTowersToGrid) {
+          newXPos = mouseX - mouseX % 50 + 25;
+          newYPos = mouseY - (mouseY % 50) + 25;
+          if ((newXPos - 25) % 50 == 0) {
+            newYPos += 25;
+          }
+        }
+        
+        x = newXPos;
+        y = newYPos;
+        
+        // Code to make a new tower goes here!
+      }
+    }
+  }
+  
+  // This method will draw a copy of the tower's sprite while you're moving it
+  void drawFakeTower() {
+    rectMode(CENTER);
+    noStroke();
+    fill(255);
+    rect(mouseX,mouseY,xSize,ySize);
   }
 }
 
 void mouseDragged() {
   dragging = true;
-  
-  
+  // If nothing is being held and player is hovering over a tower, grab it
+  if (heldIcon == null && hoveringButton == hoveringTower) {
+    heldIcon = hoveringTower;
+  }
 }
 
 void mouseReleased() {
