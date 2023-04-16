@@ -13,7 +13,7 @@ TowerIcon heldIcon;
 boolean dragging = false;
 
 // Should towers snap to the game grid?
-boolean snapTowersToGrid = true;
+boolean snapTowersToGrid = false;
 
 // This class creates a gui button
 class GuiButton {
