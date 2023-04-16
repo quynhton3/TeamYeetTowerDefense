@@ -12,14 +12,11 @@ TowerIcon heldIcon;
 // Is the player currently dragging their mouse?
 boolean dragging = false;
 
-// Should towers snap to the game grid?
-boolean snapTowersToGrid = false;
-
 // This class creates a gui button
 class GuiButton {
   
   float x, y, xSize, ySize;
-  boolean hovering = false;
+  boolean hovering, snapToGrid = false;
   
   GuiButton(float x, float y, float xSize, float ySize) {
     this.x = x;
@@ -85,7 +82,7 @@ class TowerIcon extends GuiButton {
         float newXPos = mouseX;
         float newYPos = mouseY;
         
-        if (snapTowersToGrid) {
+        if (snapToGrid) {
           newXPos = mouseX - mouseX % 50 + 25;
           newYPos = mouseY - (mouseY % 50) + 25;
           if ((newXPos - 25) % 50 == 0) {

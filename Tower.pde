@@ -14,4 +14,16 @@ class Tower {
     this.y = y;
     this.towerType = towerType;
   }
+  
+  void update() {
+    
+  }
+  
+  void draw() {
+    
+  }
+  
+  void getNearestEnemy() {
+    
+  }
 }
