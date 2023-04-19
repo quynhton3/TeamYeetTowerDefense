@@ -4,6 +4,7 @@ Player player;
 Pathfinder pathfinder;
 Tile tile;
 Shop shop;
+MainHUD mainHUD; //Q
 
 boolean isExisting; 
 void setup() {
@@ -14,9 +15,12 @@ void setup() {
   pathfinder = new Pathfinder();
   tile = new Tile();
   shop = new Shop();
+  mainHUD = new MainHUD();
 }
 void draw() {
   // UPDATE:
+  mainHUD.update(); //Q
+
   player.update();
 
   // DRAW:
@@ -36,9 +40,9 @@ void draw() {
 
   //Bar at bottom
   fill(0);
-  rect(0, height - 100, width, 500);
+  rect(0, height - 80, width, 500);
 
-
+  mainHUD.draw(); //Q
   shop.draw();
 
   // TODO: draw a little ellipse in the tile's center
@@ -60,23 +64,22 @@ void draw() {
 }
 
 boolean MouseInTiles() {
-  if (mouseX <= width - 100 && mouseY >= height - 50) { //UI area
+  if (mouseX <= width - 80 && mouseY >= height - 50) { //UI area
     return true;
   }
   return false;
 }
 
 //Button /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-boolean isMouseOver(int x, int y, int w, int h) {
+boolean isMouseOver(int x, int y, int w, int h, int buttonColor ) {
   if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse is hovered over
-    noStroke();
-    fill(0, 100);
-    rect(x, y, w, h);
     fill(255);
+    noStroke();
+    rect(x, y, w, h);
     return true;
   } else { //When mouse is NOT hovered over
     noStroke();
-    fill(0, 80);
+    fill(buttonColor, 80);
     rect(x, y, w, h);
     return false;
   }
