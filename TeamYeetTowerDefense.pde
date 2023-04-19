@@ -9,6 +9,7 @@ boolean isExisting;
 int tileSize;
 float time;
 ArrayList<Tower> towers = new ArrayList<Tower>();
+ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 void setup() {
   size(926, 428);

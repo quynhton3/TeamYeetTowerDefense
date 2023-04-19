@@ -43,7 +43,7 @@ class Tower {
     image(img, x-r, y-r, r*2, r*2);
   }
   
-  void getNearestEnemy() {
+  Enemy getNearestEnemy() {
     //Called by all cats except entropy
   }
   
