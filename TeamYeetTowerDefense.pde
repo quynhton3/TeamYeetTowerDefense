@@ -3,8 +3,13 @@ Level level;
 Player player;
 Pathfinder pathfinder;
 Tile tile;
-boolean isExisting; 
-TowerIcon testIcon;
+boolean isExisting;
+
+//Towers/Cats stuff
+int tileSize;
+float time;
+ArrayList<Tower> towers = new ArrayList<Tower>();
+
 void setup() {
   size(926, 428);
   TileHelper.app = this;
@@ -12,16 +17,24 @@ void setup() {
   player = new Player();
   pathfinder = new Pathfinder();
   tile = new Tile();
-  testIcon = new TowerIcon(40,height - 40,50,50);
+
+  tileSize = TileHelper.W;
+  time = (float)millis()/1000.0;
 }
 void draw() {
   // UPDATE:
   player.update();
+  for (Tower t : towers) {
+    t.update();
+  }
 
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
   level.draw();
   player.draw();
+  for (Tower t : towers) {
+    t.draw();
+  }
 
   // TODO: using mouse position, get tile. set it's hover property to true
   if (MouseInTiles()) {
@@ -31,13 +44,12 @@ void draw() {
 
     tile.hover = true; //
   }
-  rectMode(CORNER);
   rect(0, height - 100, width, 500);
 
   // TODO: draw a little ellipse in the tile's center
   PVector m = tile.getCenter();
   fill(0);
-  ellipse(m.x, m.y, 8, 8); 
+  ellipse(m.x, m.y, 8, 8);
 
 
   // DRAW DEBUG INFO:
@@ -50,9 +62,6 @@ void draw() {
   text(s2, 10, 30);
   text(s3, 10, 45);
   text(s4, 10, 60);
-  
-  testIcon.update();
-  testIcon.draw();
 }
 
 boolean MouseInTiles() {
@@ -67,7 +76,7 @@ void mousePressed() {
   // TODO: set the player's target position to the clicked tile
   if (mouseX <= width && mouseY >= height - 200) { //UI area
   } else {
-    player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only 
+    player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
   }
 }
 void keyPressed() {
