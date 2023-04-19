@@ -61,8 +61,11 @@ class GuiButton {
 
 // This class creates a tower icon that can be dragged onto the screen
 class TowerIcon extends GuiButton {
+  int towerType;
+  
   TowerIcon(float x, float y, float xSize, float ySize, int towerType) {
     super(x,y,xSize,ySize);
+    this.towerType = towerType;
   }
   
   void update() {
@@ -94,6 +97,7 @@ class TowerIcon extends GuiButton {
         y = newYPos;
         
         // Code to make a new tower goes here!
+        towers.add(new Tower(x, y, towerType));
       }
     }
   }
