@@ -3,6 +3,8 @@ Level level;
 Player player;
 Pathfinder pathfinder;
 Tile tile;
+Shop shop;
+
 boolean isExisting; 
 void setup() {
   size(926, 428);
@@ -11,6 +13,7 @@ void setup() {
   player = new Player();
   pathfinder = new Pathfinder();
   tile = new Tile();
+  shop = new Shop();
 }
 void draw() {
   // UPDATE:
@@ -21,6 +24,7 @@ void draw() {
   level.draw();
   player.draw();
 
+
   // TODO: using mouse position, get tile. set it's hover property to true
   if (MouseInTiles()) {
     Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
@@ -29,7 +33,13 @@ void draw() {
 
     tile.hover = true; //
   }
+
+  //Bar at bottom
+  fill(0);
   rect(0, height - 100, width, 500);
+
+
+  shop.draw();
 
   // TODO: draw a little ellipse in the tile's center
   PVector m = tile.getCenter();
@@ -56,12 +66,27 @@ boolean MouseInTiles() {
   return false;
 }
 
+//Button /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+boolean isMouseOver(int x, int y, int w, int h) {
+  if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse is hovered over
+    noStroke();
+    fill(0, 100);
+    rect(x, y, w, h);
+    fill(255);
+    return true;
+  } else { //When mouse is NOT hovered over
+    noStroke();
+    fill(0, 80);
+    rect(x, y, w, h);
+    return false;
+  }
+}
 
 void mousePressed() {
   // TODO: set the player's target position to the clicked tile
-  if (mouseX <= width && mouseY >= height - 200) { //UI area
+  if (mouseX <= width && mouseY >= height - 200) { //UI area at the bottom
   } else {
-    player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only 
+    player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
   }
 }
 void keyPressed() {
