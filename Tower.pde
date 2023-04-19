@@ -8,7 +8,7 @@ int ENTROPY_CAT = 4;
 // This class creates a tower
 class Tower {
   //Visual Properties
-  float x, y, r;
+  float x, y, r, maxRange;
   int towerType;
   PImage img;
   
