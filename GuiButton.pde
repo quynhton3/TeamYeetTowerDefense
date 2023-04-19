@@ -61,7 +61,7 @@ class GuiButton {
 
 // This class creates a tower icon that can be dragged onto the screen
 class TowerIcon extends GuiButton {
-  TowerIcon(float x, float y, float xSize, float ySize) {
+  TowerIcon(float x, float y, float xSize, float ySize, int towerType) {
     super(x,y,xSize,ySize);
   }
   
