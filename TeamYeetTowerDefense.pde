@@ -1,6 +1,7 @@
 boolean debug = false;
 Level level;
-Player player;
+ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+int enemySpawnCD =100;
 Pathfinder pathfinder;
 Tile tile;
 boolean isExisting;
@@ -14,7 +15,7 @@ void setup() {
   size(926, 428);
   TileHelper.app = this;
   level = new Level();
-  player = new Player();
+  
   pathfinder = new Pathfinder();
   tile = new Tile();
 
@@ -23,7 +24,20 @@ void setup() {
 }
 void draw() {
   // UPDATE:
-  player.update();
+   enemySpawnCD--;
+  /////////////////////////////Enemies spawner
+  if(enemySpawnCD<=0){
+     Enemy e = new Enemy();
+     enemies.add(e);
+     enemySpawnCD=100;
+     
+  }
+  
+   for (int i = 0; i <enemies.size(); i++) {
+  Enemy e = enemies.get(i);
+   e.update();
+  
+  }
   for (Tower t : towers) {
     t.update();
   }
@@ -31,7 +45,10 @@ void draw() {
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
   level.draw();
-  player.draw();
+  for (int i = 0; i <enemies.size(); i++) {
+  Enemy e = enemies.get(i);
+   e.draw(); 
+  }
   for (Tower t : towers) {
     t.draw();
   }
@@ -76,7 +93,7 @@ void mousePressed() {
   // TODO: set the player's target position to the clicked tile
   if (mouseX <= width && mouseY >= height - 200) { //UI area
   } else {
-    player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
+    //player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
   }
 }
 void keyPressed() {
