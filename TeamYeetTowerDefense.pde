@@ -1,7 +1,7 @@
 boolean debug = false;
 Level level;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-int enemySpawnCD =100;
+int enemySpawnCD = 100;
 Pathfinder pathfinder;
 Tile tile;
 boolean isExisting;
@@ -10,7 +10,6 @@ boolean isExisting;
 int tileSize;
 float time;
 ArrayList<Tower> towers = new ArrayList<Tower>();
-ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 void setup() {
   size(926, 428);

@@ -32,6 +32,10 @@ class CatLightning extends Tower {
     for (int i = 0; i < maxTargets - 1; i++) {
       targetEnemies.add(getNextTarget(targetEnemies.get(i)));
     }
+    
+    for (int i = 0; i < targetEnemies.size(); i++) {
+      targetEnemies.get(i).health -= atkDamage;
+    }
   }
   
   // Find nearest enemy not including that enemy

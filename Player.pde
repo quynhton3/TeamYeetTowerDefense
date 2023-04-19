@@ -1,4 +1,4 @@
-class Enemy extends RadialObject {
+class Player {
 
   // GRID-SPACE COORDINATES:
   Point gridP = new Point(); // current position
@@ -9,14 +9,9 @@ class Enemy extends RadialObject {
 
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
-  
-  float health;
 
-  Enemy() {
+  Player() {
     teleportTo(gridP);
-    setTargetPosition(TileHelper.pixelToGrid(new PVector(850,275)));
-    
-    health = 100;
   }
   void teleportTo(Point gridP) {
     Tile tile = level.getTile(gridP);

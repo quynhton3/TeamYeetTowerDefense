@@ -33,7 +33,7 @@ class Tower {
     //Attack Speed Timer
     atkTimer -= time;
     
-    if (atkTimer <= 0) {
+    if (atkTimer <= 0 && enemies.size() > 0 && getNearestEnemy() != null) {
       attack(); //Calls the child's attack function cuz polymorphism
       atkTimer = atkSpeed;
     }
@@ -45,6 +45,23 @@ class Tower {
   
   Enemy getNearestEnemy() {
     //Called by all cats except entropy
+    
+    Enemy closestEnemy = enemies.get(0);
+    float shortestDist = maxRange;
+    for (int i = 0; i < enemies.size(); i++) {
+      PVector enemyPos = enemies.get(i).position;
+      float newDist = dist(enemyPos.x,enemyPos.y,x,y);
+      if (newDist < shortestDist) {
+        closestEnemy = enemies.get(i);
+      }
+    }
+    
+    if (shortestDist == maxRange) {
+      return null;
+    }
+    else {
+      return closestEnemy;   
+    }
   }
   
   void attack() {} //To be polymorphed
