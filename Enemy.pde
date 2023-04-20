@@ -9,6 +9,8 @@ class Enemy extends RadialObject {
 
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
+  boolean isDead = false;
+  int hp = 5;
 
   Enemy() {
     teleportTo(gridP);
@@ -27,6 +29,8 @@ class Enemy extends RadialObject {
     findPath = true;
   }
   void update() {
+    position = pixlP;
+    
     if (findPath == true) findPathAndTakeNextStep();
     updateMove();
   }

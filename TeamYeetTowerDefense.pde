@@ -3,8 +3,10 @@ Level level;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 int enemySpawnCD =100;
 Pathfinder pathfinder;
+Base base;
 Tile tile;
 boolean isExisting;
+int money = 50;
 
 //Towers/Cats stuff
 int tileSize;
@@ -15,7 +17,7 @@ void setup() {
   size(926, 428);
   TileHelper.app = this;
   level = new Level();
-  
+  base = new Base();
   pathfinder = new Pathfinder();
   tile = new Tile();
 
@@ -33,11 +35,21 @@ void draw() {
      
   }
   
+  
    for (int i = 0; i <enemies.size(); i++) {
   Enemy e = enemies.get(i);
    e.update();
-  
+  if(e.checkCollision(base)){
+    base.hp--;
+    println(base.hp);
+    e.isDead = true;
+    
   }
+  if(e.isDead){
+   enemies.remove(e);
+   money += 10;
+  }
+   }
   for (Tower t : towers) {
     t.update();
   }
@@ -45,6 +57,7 @@ void draw() {
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
   level.draw();
+  base.draw();
   for (int i = 0; i <enemies.size(); i++) {
   Enemy e = enemies.get(i);
    e.draw(); 
@@ -54,13 +67,13 @@ void draw() {
   }
 
   // TODO: using mouse position, get tile. set it's hover property to true
-  if (MouseInTiles()) {
-    Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
-    //g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
-    Tile tile = level.getTile(g);
+  //if (MouseInTiles()) {
+  //  Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
+  //  //g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
+  //  Tile tile = level.getTile(g);
 
-    tile.hover = true; //
-  }
+  //  tile.hover = true; //
+  //}
   rect(0, height - 100, width, 500);
 
   // TODO: draw a little ellipse in the tile's center
