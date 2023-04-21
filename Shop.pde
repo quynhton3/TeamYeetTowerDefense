@@ -37,10 +37,10 @@ class Shop
     fill(100, 255, 100, 230); //Green
     rect(buyX, buyY, buyW, buyH); 
     isMouseOver(buyX, buyY, buyW, buyH, 200); //Buy Button 
-    
+
     fill(255);
     textSize(30);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     text("B U Y ", buyX + buyW/2, buyY + buyH/2 -5);
     textSize(12);
 
@@ -84,31 +84,30 @@ class Shop
 
   void mousePressed() {
 
-    if (mouseButton == LEFT) {
-print("YO");
-    }
+    //if (mouseButton == LEFT) {
+    //  print("YO");
+    //}
 
-      if (isMouseOver(175, 125, 75, 75, 0) == true) { //Fire 
-        //Drag tower code here: @James
-        print("ok");
-        test = 3;
-      }
-      if (isMouseOver(275, 125, 75, 75, 0)) { //Lightning
-        //Drag tower code here: @James
-        print(test);
-      }
-      if (isMouseOver(375, 125, 75, 75, 0)) { //Ice
-        //Drag tower code here: @James
-      }
-      if (isMouseOver(475, 125, 75, 75, 0)) { //Entrophy
-        //Drag tower code here: @James
-      }
-      if (isMouseOver(575, 125, 75, 75, 0)) { //Logs
-        //Drag log code here: @James
-      }
-      if (isMouseOver(675, 125, 75, 75, 0)) { //2Logs
-        //Drag log code here: @James
-      
+    if (mouseButton == LEFT && isMouseOver(175, 125, 75, 75, 0) == true) { //Fire 
+      //Drag tower code here: @James
+      print("ok");
+      test = 3;
+    }
+    if (mouseButton == LEFT && isMouseOver(275, 125, 75, 75, 0)) { //Lightning
+      //Drag tower code here: @James
+      print(test);
+    }
+    if (mouseButton == LEFT && isMouseOver(375, 125, 75, 75, 0)) { //Ice
+      //Drag tower code here: @James
+    }
+    if (mouseButton == LEFT && isMouseOver(475, 125, 75, 75, 0)) { //Entrophy
+      //Drag tower code here: @James
+    }
+    if (mouseButton == LEFT && isMouseOver(575, 125, 75, 75, 0)) { //Logs
+      //Drag log code here: @James
+    }
+    if (mouseButton == LEFT && isMouseOver(675, 125, 75, 75, 0)) { //2Logs
+      //Drag log code here: @James
     }
   }
 }
