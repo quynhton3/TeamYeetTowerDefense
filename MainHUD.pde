@@ -1,9 +1,11 @@
 class MainHUD 
 {
-  int descriptionX = 170;
-  int descriptionY = 300;
 
+  int shopX = 30, shopY = 380, shopW = 150, shopH = 30;
 
+  int playX = 720, playY = 380, playW = 150, playH = 30;
+
+  int coinX = 30, coinY = 20;
   MainHUD()
   {
   }
@@ -14,39 +16,54 @@ class MainHUD
 
   void draw()
   {
+    if (shopOpen) {
+      print("ok");
+    }
 
 
-    isMouseOver(30, 380, 150, 30, 255); //Shop button 
+    //isMouseOver(30, 380, 150, 30, 200); //Shop button 
 
-    isMouseOver(570, 300, 185, 70, 0); //Play Button 
     //Main HUD///////////////////////////////////////////////////////////////////////////////////////////////
+    fill(0);
+    rect(0, 0, 900, 30); //top Backgroud Black
+
+    fill(255, 90);
+    textSize(18);
+    text("$ :" + coins + " ", coinX, coinY);
+    textSize(12);
+
+
     fill(255);
     textAlign(TOP, LEFT);
+    text("P L A Y", playX + 10, playY + 20);
+    if (isMouseOver(720, 380, 150, 30, 200)) { //Play button 
 
-    if (isMouseOver(720, 380, 150, 30, 0)) { //Play button 
-      fill(255, 20, 20);
-      text("P L A Y", descriptionX + 10, descriptionY + 20);
-      // PUT SPAWN CODE
+
+      // PUT SPAWN ENEMIES CODE @Mikey
     }
 
+    fill(100, 255, 100, 80); //Green
+    rect(shopX, shopY, shopW, shopH); //Shop Button bg
+    isMouseOver(shopX, shopY, shopW, shopH, 200); //Shop button Hover
+    fill(100, 200, 100);
+    fill(255);
+    text("S H O P", shopX +10, shopY +20);
 
 
-    if (isMouseOver(30, 380, 150, 30, 0)) { //Shop
-      text("S H O P", descriptionX + 10, descriptionY + 20);
 
-      //OPENS SHOP
-    }
-
-
-
-    fill(0, 100); //Text
-    textAlign(CENTER, CENTER);
-    text("Fire Tower", 175, 225);
-    text("Lightning Tower", 275, 225);
-    text("Ice Tower", 375, 225);
-    text("Entrophy Tower", 475, 225);
+    isMouseOver(720, 380, 150, 30, 200); //Play Button Hover
   }
 
+
   void mousePressed() {
+
+    if (isMouseOver(shopX, shopY, shopW, shopH, 0)) { //Clicked on Shop
+      fill(255);
+
+      print("OK");
+
+      //OPENS SHOP
+      shopOpen = true;
+    }
   }
 }
