@@ -5,14 +5,23 @@ int enemySpawnCD =100;
 Pathfinder pathfinder;
 Base base;
 Tile tile;
+Shop shop; //Q 21
+MainHUD mainHUD; //Q 21
+
 boolean isExisting;
 int money = 50;
 
-//Towers/Cats stuff
+//Towers/Cats stuff 
 int tileSize;
 float time;
 ArrayList<Tower> towers = new ArrayList<Tower>();
 
+//Shop Variables//////
+int coins; //Q 21 
+boolean shopOpen; //Q 21
+int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
+
+boolean mouseClicked; //Q 21
 void setup() {
   size(926, 428);
   TileHelper.app = this;
@@ -20,36 +29,42 @@ void setup() {
   base = new Base();
   pathfinder = new Pathfinder();
   tile = new Tile();
+  shop = new Shop();
+  mainHUD = new MainHUD();
 
   tileSize = TileHelper.W;
   time = (float)millis()/1000.0;
 }
 void draw() {
   // UPDATE:
-   enemySpawnCD--;
+  mainHUD.update(); //Q 21
+  shop.update(); //Q 21
+  
+  
+  
+  
+  enemySpawnCD--;
   /////////////////////////////Enemies spawner
-  if(enemySpawnCD<=0){
-     Enemy e = new Enemy();
-     enemies.add(e);
-     enemySpawnCD=100;
-     
+  if (enemySpawnCD<=0) {
+    Enemy e = new Enemy();
+    enemies.add(e);
+    enemySpawnCD=100;
   }
-  
-  
-   for (int i = 0; i <enemies.size(); i++) {
-  Enemy e = enemies.get(i);
-   e.update();
-  if(e.checkCollision(base)){
-    base.hp--;
-    println(base.hp);
-    e.isDead = true;
-    
+
+
+  for (int i = 0; i <enemies.size(); i++) {
+    Enemy e = enemies.get(i);
+    e.update();
+    if (e.checkCollision(base)) {
+      base.hp--;
+      println(base.hp);
+      e.isDead = true;
+    }
+    if (e.isDead) {
+      enemies.remove(e);
+      money += 10;
+    }
   }
-  if(e.isDead){
-   enemies.remove(e);
-   money += 10;
-  }
-   }
   for (Tower t : towers) {
     t.update();
   }
@@ -59,13 +74,26 @@ void draw() {
   level.draw();
   base.draw();
   for (int i = 0; i <enemies.size(); i++) {
-  Enemy e = enemies.get(i);
-   e.draw(); 
+    Enemy e = enemies.get(i);
+    e.draw();
   }
   for (Tower t : towers) {
     t.draw();
   }
 
+  //Bar at Bottom
+  fill(0);
+  rect(0, height - 100, width, 500);
+
+
+  mainHUD.draw(); //Q 21
+
+ if (shopOpen) { //Opens shop 
+    shop.draw(); //Q 21
+    
+  }
+
+ 
   // TODO: using mouse position, get tile. set it's hover property to true
   //if (MouseInTiles()) {
   //  Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
@@ -74,7 +102,8 @@ void draw() {
 
   //  tile.hover = true; //
   //}
-  rect(0, height - 100, width, 500);
+
+
 
   // TODO: draw a little ellipse in the tile's center
   PVector m = tile.getCenter();
@@ -83,15 +112,15 @@ void draw() {
 
 
   // DRAW DEBUG INFO:
-  fill(255, 255, 0);
-  String s1 = (pathfinder.useManhattan) ? "(h) heuristic: manhattan" : "(h) heuristic: euclidian";
-  String s2 = (level.useDiagonals) ? "(d) diagonals: yes" : "(d) diagonals: no";
-  String s3 = (TileHelper.isHex) ? "(g) grid: hex" : "(g) grid: square";
-  String s4 = (debug) ? "(`) debug: on" : "(`) debug: off";
-  text(s1, 10, 15);
-  text(s2, 10, 30);
-  text(s3, 10, 45);
-  text(s4, 10, 60);
+  //fill(255, 255, 0);
+  //String s1 = (pathfinder.useManhattan) ? "(h) heuristic: manhattan" : "(h) heuristic: euclidian";
+  //String s2 = (level.useDiagonals) ? "(d) diagonals: yes" : "(d) diagonals: no";
+  //String s3 = (TileHelper.isHex) ? "(g) grid: hex" : "(g) grid: square";
+  //String s4 = (debug) ? "(`) debug: on" : "(`) debug: off";
+  //text(s1, 10, 15);
+  //text(s2, 10, 30);
+  //text(s3, 10, 45);
+  //text(s4, 10, 60);
 }
 
 boolean MouseInTiles() {
@@ -102,11 +131,34 @@ boolean MouseInTiles() {
 }
 
 
+//Button /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+boolean isMouseOver(int x, int y, int w, int h, int buttonHovered) {
+  if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse is hovered over
+    fill(255, 80);
+    noStroke();
+    rect(x, y, w, h);
+
+    fill(buttonHovered);
+    rect(x, y, w, h);
+    fill(255);//for White Text
+    return true;
+  } else { //When mouse is NOT hovered over
+    noStroke();
+    fill(255, 80);
+    rect(x, y, w, h);
+    return false;
+  }
+}
 void mousePressed() {
   // TODO: set the player's target position to the clicked tile
   if (mouseX <= width && mouseY >= height - 200) { //UI area
   } else {
     //player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
+
+    if (mouseButton == LEFT) { //Q 21
+      mouseClicked = true;
+      mouseClicked = false;
+    }
   }
 }
 void keyPressed() {
