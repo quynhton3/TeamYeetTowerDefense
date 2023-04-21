@@ -2,8 +2,9 @@ class Shop
 {
   int descriptionX = 170, descriptionY = 300;
   int buyX = 570, buyY = 300, buyW = 185, buyH = 70;
+  boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog;
+  int fireCost = 90, iceCost = 60, lightningCost = 120, entrophyCost = 40, rockCost = 15, logCost = 20; 
 
-  int test = 1;
   Shop()
   {
   }
@@ -74,40 +75,47 @@ class Shop
 
 
 
-    fill(0, 100); //Text
+    fill(0, 100); //Text//////////////////////////////////
     textAlign(CENTER, CENTER);
-    text("Fire Tower", 175 + (75), 225);
-    text("Lightning Tower", 275 + (75/8), 225);
-    text("Ice Tower", 375 + (75/8), 225);
-    text("Entrophy Tower", 475 + (75/8), 225);
-  }
 
-  void mousePressed() {
+    text("Towers", 200, 110);
+    text("Walls", 600, 110);
 
-    //if (mouseButton == LEFT) {
-    //  print("YO");
-    //}
+    text("Fire Cat", 175 + (35), 225);
+    text("Lightning Cat", 275 + (35), 225);
+    text("Ice Cat", 375 + (35), 225);
+    text("Entrophy Cat", 475 + (35), 225);
 
-    if (mouseButton == LEFT && isMouseOver(175, 125, 75, 75, 0) == true) { //Fire 
-      //Drag tower code here: @James
-      print("ok");
-      test = 3;
+    text("Rock", 575 + 35, 225);
+    text("Log", 675 + 35, 225);
+
+
+
+    //Selected Item/////////////////////////////////////////////////////////////////////////
+    if (mouseClicked  && isMouseOver(175, 125, 75, 75, 255)) { //Fire 
+      hasFire = true;
     }
-    if (mouseButton == LEFT && isMouseOver(275, 125, 75, 75, 0)) { //Lightning
-      //Drag tower code here: @James
-      print(test);
+    if (mouseClicked  && isMouseOver(275, 125, 75, 75, 255) == true) { //Lightning
+      hasLightning = true;
     }
-    if (mouseButton == LEFT && isMouseOver(375, 125, 75, 75, 0)) { //Ice
-      //Drag tower code here: @James
+    if (mouseClicked  && isMouseOver(375, 125, 75, 75, 255)) { //Ice
+      hasIce = true;
     }
-    if (mouseButton == LEFT && isMouseOver(475, 125, 75, 75, 0)) { //Entrophy
-      //Drag tower code here: @James
+    if (mouseClicked && isMouseOver(475, 125, 75, 75, 255)) { //Entrophy
+      hasEntrophy = true;
     }
-    if (mouseButton == LEFT && isMouseOver(575, 125, 75, 75, 0)) { //Logs
-      //Drag log code here: @James
+    if (mouseClicked  && isMouseOver(575, 125, 75, 75, 255)) { //Rock
+      hasRock = true;
     }
-    if (mouseButton == LEFT && isMouseOver(675, 125, 75, 75, 0)) { //2Logs
-      //Drag log code here: @James
+    if (mouseClicked  && isMouseOver(675, 125, 75, 75, 255)) { //Log
+      hasLog = true;
     }
+
+    if (mouseClicked) print(hasFire);
+    //Brought///////////////////////////////////////////////////////////////////////////////
+
+    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
+    }
+    //Drag log code here: @James
   }
 }

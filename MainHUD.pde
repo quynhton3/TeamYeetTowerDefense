@@ -55,15 +55,15 @@ class MainHUD
   }
 
 
-  void mousePressed() {
+  //void mousePressed() {
 
-    if (isMouseOver(shopX, shopY, shopW, shopH, 0)) { //Clicked on Shop
-      fill(255);
+  //  if (isMouseOver(shopX, shopY, shopW, shopH, 0)) { //Clicked on Shop
+  //    fill(255);
 
-      print("OK");
+  //    print("OK");
 
-      //OPENS SHOP
-      shopOpen = true;
-    }
-  }
+  //    //OPENS SHOP
+  //    shopOpen = true;
+  //  }
+  //}
 }

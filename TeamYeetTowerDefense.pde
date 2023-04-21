@@ -1,6 +1,6 @@
 boolean debug = false;
 Level level;
-Player player;
+//Player player;
 Pathfinder pathfinder;
 Tile tile;
 Shop shop;
@@ -13,12 +13,15 @@ boolean isExisting;
 //Shop Variables//////
 int coins; //Q 21 
 boolean shopOpen; //Q 21
+int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 
+boolean mouseClicked; //Q 21
+int test =1 ;
 void setup() {
   size(926, 428);
   TileHelper.app = this;
   level = new Level();
-  player = new Player();
+  //player = new Player();
   pathfinder = new Pathfinder();
   tile = new Tile();
   shop = new Shop();
@@ -28,12 +31,12 @@ void draw() {
   // UPDATE:
   mainHUD.update(); //Q 21
 
-  player.update();
+  //player.update();
 
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
   level.draw();
-  player.draw();
+  //player.draw();
 
 
   // TODO: using mouse position, get tile. set it's hover property to true
@@ -88,7 +91,6 @@ boolean isMouseOver(int x, int y, int w, int h, int buttonHovered) {
     noStroke();
     rect(x, y, w, h);
 
-
     fill(buttonHovered);
     rect(x, y, w, h);
     fill(255);//for White Text
@@ -103,29 +105,39 @@ boolean isMouseOver(int x, int y, int w, int h, int buttonHovered) {
 
 void mousePressed() {
   // TODO: set the player's target position to the clicked tile
-  if (mouseX <= width && mouseY >= height - 200) { //UI area at the bottom
+  if (mouseX <= width && mouseY >= height - 100) { //UI area at the bottom
+  } else if (mouseX > shopBGX && mouseX < shopBGX2 && mouseY > shopBGY && mouseY < shopBGY2) {
   } else {
-    player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
+
+   // player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
   }
-}
-void keyPressed() {
-  if (debug) println(keyCode);
+  if (mouseButton == LEFT){ //Q 21
+  mouseClicked = true;
+  
+  mouseClicked = false;
+  }
 
 
-  if (keyCode == 49) level.loadLevel(LevelDefs.LEVEL1);
-  if (keyCode == 50) level.loadLevel(LevelDefs.LEVEL2);
-  if (keyCode == 51) level.loadLevel(LevelDefs.LEVEL3);
-  if (keyCode == 52) level.loadLevel(LevelDefs.LEVEL4);
-  if (keyCode == 53) level.loadLevel(LevelDefs.LEVEL5);
 
-  if (keyCode == 68) {
-    level.toggleDiagonals();
-    level.reloadLevel();
   }
-  if (keyCode == 71) {
-    TileHelper.isHex = !TileHelper.isHex;
-    level.reloadLevel();
+  void keyPressed() {
+    if (debug) println(keyCode);
+
+
+    if (keyCode == 49) level.loadLevel(LevelDefs.LEVEL1);
+    if (keyCode == 50) level.loadLevel(LevelDefs.LEVEL2);
+    if (keyCode == 51) level.loadLevel(LevelDefs.LEVEL3);
+    if (keyCode == 52) level.loadLevel(LevelDefs.LEVEL4);
+    if (keyCode == 53) level.loadLevel(LevelDefs.LEVEL5);
+
+    if (keyCode == 68) {
+      level.toggleDiagonals();
+      level.reloadLevel();
+    }
+    if (keyCode == 71) {
+      TileHelper.isHex = !TileHelper.isHex;
+      level.reloadLevel();
+    }
+    if (keyCode == 72) pathfinder.toggleHeuristic();
+    if (keyCode == 222) debug = !debug;
   }
-  if (keyCode == 72) pathfinder.toggleHeuristic();
-  if (keyCode == 222) debug = !debug;
-}
