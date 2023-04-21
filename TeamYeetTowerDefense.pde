@@ -199,6 +199,19 @@ void mousePressed() {
       //Drag log code here: @James
       coins -= fireCost;
     }
+    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
+      //Drag log code here: @James
+      coins -= fireCost;
+    }
+    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
+      //Drag log code here: @James
+      coins -= fireCost;
+    }
+    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
+      //Drag log code here: @James
+      coins -= fireCost;
+    }
+
   }
   //}//End mousePressed
 } // end of MousePressed
