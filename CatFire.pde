@@ -1,7 +1,7 @@
 class CatFire extends Tower {
 
   CatFire(float x, float y) {
-    super(x, y, 1);
+    super(x, y, 2);
 
     //Set Unit Properties
     cost = 1;

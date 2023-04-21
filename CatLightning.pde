@@ -1,7 +1,7 @@
 class CatLightning extends Tower {
 
   CatLightning(float x, float y) {
-    super(x, y, 1);
+    super(x, y, 3);
 
     //Set Unit Properties
     cost = 1;

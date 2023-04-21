@@ -6,7 +6,7 @@ int LIGHTING_CAT = 3;
 int ENTROPY_CAT = 4;
 
 // This class creates a tower
-class Tower {
+class Tower extends RadialObject{
   //Visual Properties
   float x, y, r;
   int towerType;
@@ -21,6 +21,10 @@ class Tower {
     this.x = x;
     this.y = y;
     this.towerType = towerType;
+    
+    this.position = new PVector(x,y);
+    this.radius = 100; //Attack Radius 
+    
     
     r = tileSize; //make this reference the circle size
     upgradeLevel = 1;
@@ -41,6 +45,8 @@ class Tower {
   
   void draw() {
     image(img, x-r, y-r, r*2, r*2);
+    
+    //ellipse(
   }
   
   void getNearestEnemy() {

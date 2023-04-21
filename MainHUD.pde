@@ -16,7 +16,7 @@ class MainHUD
   void draw()
   {
     if (shopOpen) {
-      print("ok");
+    
     }
 
 

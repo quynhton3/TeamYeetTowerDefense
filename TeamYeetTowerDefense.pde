@@ -9,7 +9,7 @@ Shop shop; //Q 21
 MainHUD mainHUD; //Q 21
 
 boolean isExisting;
-int money = 50;
+int money = 500;
 
 //Towers/Cats stuff 
 int tileSize;
@@ -43,7 +43,7 @@ void setup() {
   shop = new Shop();
   mainHUD = new MainHUD();
 
-  tileSize = TileHelper.W;
+  tileSize = TileHelper.W/2;
   time = (float)millis()/1000.0;
 }
 void draw() {
@@ -194,24 +194,33 @@ void mousePressed() {
       hasLog = true;
     }
 
-    //Brought///////////////////////////////////////////////////////////////////////////////
-    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
-      //Drag log code here: @James
-      coins -= fireCost;
-    }
-    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
-      //Drag log code here: @James
-      coins -= fireCost;
-    }
-    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
-      //Drag log code here: @James
-      coins -= fireCost;
-    }
-    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
-      //Drag log code here: @James
-      coins -= fireCost;
+    if (isMouseOver(675, 25, 100, 50, 200)) { //Exit button
+      shopOpen = false;
     }
 
+    //Brought///////////////////////////////////////////////////////////////////////////////
+    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
+      //Drag log code here: @James
+      coins -= fireCost;
+      towers.add(new CatFire(225, 225));
+
+      print("hasBroughtFire");
+    }
+    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
+      //Drag log code here: @James
+      coins -= lightningCost;
+      towers.add(new CatLightning(525, 225));
+    }
+    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
+      //Drag log code here: @James
+      coins -= iceCost;
+      towers.add(new CatIce(625, 225));
+    }
+    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
+      //Drag log code here: @James
+      towers.add(new CatEntropy(425, 225));
+      coins -= entrophyCost;
+    }
   }
   //}//End mousePressed
 } // end of MousePressed
