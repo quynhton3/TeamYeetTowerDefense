@@ -71,13 +71,23 @@ void draw() {
       println(base.hp);
       e.isDead = true;
     }
+    if(e.hp==0){
+      e.isDead=true;
+    }
     if (e.isDead) {
       enemies.remove(e);
-      money += 10;
+      money += 20;
     }
   }
   for (Tower t : towers) {
     t.update();
+    for(int i = 0; i <enemies.size(); i++) {
+       Enemy e = enemies.get(i);
+       if(e.checkCollision(t)){
+         e.hp--;
+       }
+       ;
+    }
   }
 
   // DRAW:
