@@ -16,10 +16,21 @@ int tileSize;
 float time;
 ArrayList<Tower> towers = new ArrayList<Tower>();
 
-//Shop Variables//////
+//Shop Variables/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int coins; //Q 21 
 boolean shopOpen; //Q 21
+
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
+boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
+int fireCost = 90, iceCost = 60, lightningCost = 120, entrophyCost = 40, rockCost = 15, logCost = 20; //Q 21
+int descriptionX = 170, descriptionY = 300;
+//Shop Buttons
+int buyX = 570, buyY = 300, buyW = 185, buyH = 70;
+
+//Main HUD Variables /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int shopX = 30, shopY = 380, shopW = 150, shopH = 30;
+int playX = 720, playY = 380, playW = 150, playH = 30;
+
 
 boolean mouseClicked; //Q 21
 void setup() {
@@ -39,10 +50,10 @@ void draw() {
   // UPDATE:
   mainHUD.update(); //Q 21
   shop.update(); //Q 21
-  
-  
-  
-  
+
+
+
+
   enemySpawnCD--;
   /////////////////////////////Enemies spawner
   if (enemySpawnCD<=0) {
@@ -88,12 +99,8 @@ void draw() {
 
   mainHUD.draw(); //Q 21
 
- if (shopOpen) { //Opens shop 
-    shop.draw(); //Q 21
-    
-  }
 
- 
+
   // TODO: using mouse position, get tile. set it's hover property to true
   //if (MouseInTiles()) {
   //  Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
@@ -121,7 +128,10 @@ void draw() {
   //text(s2, 10, 30);
   //text(s3, 10, 45);
   //text(s4, 10, 60);
-}
+  if (shopOpen) { //Opens shop 
+    shop.draw(); //Q 21
+  }
+} //END OF DRAW///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 boolean MouseInTiles() {
   if (mouseX <= width - 100 && mouseY >= height - 50) { //UI area
@@ -151,19 +161,49 @@ boolean isMouseOver(int x, int y, int w, int h, int buttonHovered) {
 }
 void mousePressed() {
   // TODO: set the player's target position to the clicked tile
-  if (mouseX <= width && mouseY >= height - 200) { //UI area
-  } else {
-    //player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
+  //if (mouseX <= width && mouseY >= height - 200) { //UI area
+  //} else {
+  //player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
 
-    if (mouseButton == LEFT) { //Q 21
-      mouseClicked = true;
-      mouseClicked = false;
+  //BUTTONNNNNNNNNNNNNNNNNNN//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (mouseButton == LEFT) { //Q 21
+    mouseClicked = true;
+    mouseClicked = false;
+    //Main HUD /////////////////////////////////////////////////////////////////////////////
+    if (isMouseOver(shopX, shopY, shopW, shopH, 255)) { //Shop Button
+      shopOpen =true;
+    }
+
+    //Selected Item/////////////////////////////////////////////////////////////////////////
+    if (isMouseOver(175, 125, 75, 75, 255)) { //Fire 
+      hasFire = true;
+    }
+    if (isMouseOver(275, 125, 75, 75, 255) == true) { //Lightning
+      hasLightning = true;
+    }
+    if (isMouseOver(375, 125, 75, 75, 255)) { //Ice
+      hasIce = true;
+    }
+    if (isMouseOver(475, 125, 75, 75, 255)) { //Entrophy
+      hasEntrophy = true;
+    }
+    if (isMouseOver(575, 125, 75, 75, 255)) { //Rock
+      hasRock = true;
+    }
+    if (isMouseOver(675, 125, 75, 75, 255)) { //Log
+      hasLog = true;
+    }
+
+    //Brought///////////////////////////////////////////////////////////////////////////////
+    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
+      //Drag log code here: @James
+      coins -= fireCost;
     }
   }
-}
+  //}//End mousePressed
+} // end of MousePressed
 void keyPressed() {
   if (debug) println(keyCode);
-
 
   if (keyCode == 49) level.loadLevel(LevelDefs.LEVEL1);
   if (keyCode == 50) level.loadLevel(LevelDefs.LEVEL2);

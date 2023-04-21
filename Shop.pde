@@ -1,9 +1,5 @@
 class Shop 
 {
-  int descriptionX = 170, descriptionY = 300;
-  int buyX = 570, buyY = 300, buyW = 185, buyH = 70;
-  boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog;
-  int fireCost = 90, iceCost = 60, lightningCost = 120, entrophyCost = 40, rockCost = 15, logCost = 20; 
 
   Shop()
   {
@@ -15,7 +11,7 @@ class Shop
 
   void draw()
   {
-    fill(240);
+    fill(240, 200);
     rect(150, 25, 625, 375); //Back of Window
 
     fill(25, 25, 255, 180);
@@ -75,7 +71,7 @@ class Shop
 
 
 
-    fill(0, 100); //Text//////////////////////////////////
+    fill(0, 255); //Text//////////////////////////////////
     textAlign(CENTER, CENTER);
 
     text("Towers", 200, 110);
@@ -91,31 +87,5 @@ class Shop
 
 
 
-    //Selected Item/////////////////////////////////////////////////////////////////////////
-    if (mouseClicked  && isMouseOver(175, 125, 75, 75, 255)) { //Fire 
-      hasFire = true;
-    }
-    if (mouseClicked  && isMouseOver(275, 125, 75, 75, 255) == true) { //Lightning
-      hasLightning = true;
-    }
-    if (mouseClicked  && isMouseOver(375, 125, 75, 75, 255)) { //Ice
-      hasIce = true;
-    }
-    if (mouseClicked && isMouseOver(475, 125, 75, 75, 255)) { //Entrophy
-      hasEntrophy = true;
-    }
-    if (mouseClicked  && isMouseOver(575, 125, 75, 75, 255)) { //Rock
-      hasRock = true;
-    }
-    if (mouseClicked  && isMouseOver(675, 125, 75, 75, 255)) { //Log
-      hasLog = true;
-    }
-
-    if (mouseClicked) print(hasFire);
-    //Brought///////////////////////////////////////////////////////////////////////////////
-
-    if (mouseClicked && isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
-    }
-    //Drag log code here: @James
   }
 }

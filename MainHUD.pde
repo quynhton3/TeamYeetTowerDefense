@@ -1,9 +1,7 @@
 class MainHUD 
 {
 
-  int shopX = 30, shopY = 380, shopW = 150, shopH = 30;
 
-  int playX = 720, playY = 380, playW = 150, playH = 30;
 
   int coinX = 30, coinY = 20;
 
@@ -52,11 +50,12 @@ class MainHUD
 
 
 
-    isMouseOver(720, 380, 150, 30, 200); //Play Button Hover
+    //isMouseOver(720, 380, 150, 30, 200); //Play Button Hover
 
     //Selected Item/////////////////////////////////////////////////////////////////////////
     if (mouseClicked  && isMouseOver(shopX, shopY, shopW, shopH, 255)) {  
       shopOpen = true;
+
     }
   }
 
