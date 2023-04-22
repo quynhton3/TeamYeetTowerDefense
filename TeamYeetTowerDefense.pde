@@ -8,6 +8,20 @@ Tile tile;
 Shop shop; //Q 21
 MainHUD mainHUD; //Q 21
 
+
+//SOUNDS ///////////////////////////////////////////////////////////////////////////////////////////////
+//Music from https://uppbeat.io/browse/music/lo-fi-beats?rt=ppc_google_performance_general_usa&utm_source=google&utm_medium=cpc&utm_campaign=search_performance_usa&utm_content=&utm_term=&gad=1&gclid=Cj0KCQjwi46iBhDyARIsAE3nVraK6LP2o6mq-DvnGFVBQAmAHif89dX3iCAZWTFYNwOLoR-uuvC25Y4aArx1EALw_wcB
+import ddf.minim.*;
+Minim minim;
+AudioPlayer bgMusic;
+// PICTURES /////////////////////////////////////////////////////////////////////////////////////////////
+PImage titleScreen;
+PImage gameOverScreen;
+int titleTimer = 100;
+
+
+
+
 boolean isExisting;
 int money = 500;
 
@@ -19,8 +33,9 @@ ArrayList<Tower> towers = new ArrayList<Tower>();
 boolean fireCatAttacked, lightningCatAttack, iceCatAttack, entropyCatAttacked;
 int cat1X = 225, cat1Y = 225, cat2X = 525, cat2Y = 225, cat3X = 625, cat3Y = 225, cat4X = 424, cat4Y = 225; //Cat's positions for the easier spawning way xD 
 int VFXTimer; 
+
 //Shop Variables/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int coins = 10000; //Q 21 
+int coins = 500; //Q 21 
 boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
@@ -28,7 +43,8 @@ boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
 int fireCost = 900, iceCost = 600, lightningCost = 1200, entrophyCost = 400, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
 boolean isCircleMode;
-//Shop Buttons
+
+//Shop Buttons ///////////////////////////////////////////////////////////////////////
 int buyX = 570, buyY = 300, buyW = 185, buyH = 70;
 
 //Main HUD Variables /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +66,17 @@ void setup() {
 
   tileSize = TileHelper.W/2;
   time = (float)millis()/1000.0;
+
+
+
+
+  // PICS //////////////////////////////////////
+  titleScreen = loadImage("catTowerTitle.png");
+  gameOverScreen = loadImage("gameOverCatTower.png");
+
+  minim = new Minim(this); // Music ///////////////////////
+  bgMusic = minim.loadFile("bgMusic.mp3");
+  bgMusic.loop();
 }
 void draw() {
   // UPDATE:
@@ -66,7 +93,7 @@ void draw() {
   if (enemySpawnCD<=0) {
     Enemy e = new Enemy();
     enemies.add(e);
-    enemySpawnCD= 100;
+    enemySpawnCD= 200;
   }
 
 
@@ -117,7 +144,11 @@ void draw() {
   //print(VFXTimer);
   mainHUD.draw(); //Q 21
 
-
+  //DRAWS TITLE SCREEN ////////////////////////////////////////////////////////
+  titleTimer --;
+  if ( titleTimer > 0) {
+    image(titleScreen, 0, 0);
+  } else if (titleTimer <= 0) titleTimer =0;
   // TODO: using mouse position, get tile. set it's hover property to true
   //if (MouseInTiles()) {
   //  Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
@@ -236,24 +267,28 @@ void mousePressed() {
       towers.add(new CatFire(cat1X, cat1Y));
       hasFire = false;
       VFXTimer = 20;
+      shopOpen = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
       //Drag log code here: @James
       coins -= lightningCost;
       towers.add(new CatLightning(cat2X, cat2Y));
       hasLightning = false;
+      shopOpen = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
       //Drag log code here: @James
       coins -= iceCost;
       towers.add(new CatIce(cat3X, cat3Y));
       hasIce = false;
+      shopOpen = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
       //Drag log code here: @James
       towers.add(new CatEntropy(cat4X, cat4Y));
       coins -= entrophyCost;
       hasEntrophy = false;
+      shopOpen = false;
     }
   }
   //}//End mousePressed

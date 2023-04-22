@@ -47,7 +47,7 @@ class Tile {
       else if (hover) {
       } else return; // don't draw empty tiles
     }
-    if (TERRAIN == 1) fill(200); //path
+    if (TERRAIN == 1) fill(230); //path
     if (TERRAIN == 2) fill(10); //Walls
     if (hover) fill(255, 255, 0);
 
