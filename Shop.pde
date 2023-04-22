@@ -1,8 +1,15 @@
 class Shop 
 {
   int clickedOn;
+
+
+  PImage cat1, cat2, cat3, cat4;
   Shop()
-  {
+  {  
+    cat1 = loadImage("tower1.png");
+    cat2 = loadImage("tower2.png");
+    cat3 = loadImage("tower3.png");
+    cat4 = loadImage("tower4.png");
   }
 
   void update()
@@ -132,8 +139,26 @@ class Shop
     }
 
 
+    //CAT PHOTOSS ///////////////////////////////////////
+    cat1.resize(60, 60);  
+    cat2.resize(60, 60);  
+    cat3.resize(60, 60);  
+    cat4.resize(60, 60);  
 
-    fill(50, 200); //Text//////////////////////////////////
+    tint(255, 40);  // Display at half opacity
+    image(cat1, 185, 130 + 5);
+    image(cat2, 285, 130 +5);
+    image(cat3, 385, 130 + 5);
+    image(cat4, 485, 130 + 5);
+    tint(255, 255);  // Display at full opacity
+
+
+
+
+
+
+
+    fill(100, 200); //Text////////////////////////////////////////////
     textAlign(CENTER, CENTER);
 
     //text("Towers", 200, 110);
@@ -145,12 +170,18 @@ class Shop
     text("Ice Cat", 375 + (35), 225);
     text("Entrophy Cat", 475 + (35), 225);
 
+    // PRICES
+    fill(255, 240);
     textAlign(RIGHT, CENTER);
-    fill(255, 150);
     text("$900", 175 + (35) + 30, 225 - 40);
     text("$1200", 275 + (35) + 30, 225 - 40);
     text("$600", 375 + (35) + 30, 225 - 40);
     text("$400", 475 + (35) + 30, 225 - 40);
+
+    //text("$900", 175 + (35) + 10, 225 +20);
+    //text("$1200", 275 + (35) + 20, 225 + 25);
+    //text("$600", 375 + (35) +20, 225 + 25);
+    //text("$400", 475 + (35) +10, 225 + 25);
 
 
     //    text("Rock", 575 + 35, 222);

@@ -73,8 +73,8 @@ void setup() {
   // PICS //////////////////////////////////////
   titleScreen = loadImage("catTowerTitle.png");
   gameOverScreen = loadImage("gameOverCatTower.png");
-
-  minim = new Minim(this); // Music ///////////////////////
+  // MUSIC ////////////////////////////////////
+  minim = new Minim(this); 
   bgMusic = minim.loadFile("bgMusic.mp3");
   bgMusic.loop();
 }
