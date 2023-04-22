@@ -48,6 +48,7 @@ void setup() {
 }
 void draw() {
   // UPDATE:
+  println(towers.size());
   mainHUD.update(); //Q 21
   shop.update(); //Q 21
 
@@ -59,7 +60,7 @@ void draw() {
   if (enemySpawnCD<=0) {
     Enemy e = new Enemy();
     enemies.add(e);
-    enemySpawnCD=100;
+    enemySpawnCD=15;
   }
 
 
@@ -79,10 +80,11 @@ void draw() {
       money += 20;
     }
   }
-  for (Tower t : towers) {
+  for (int i = 0; i <towers.size(); i++) {
+    Tower t = towers.get(i);
     t.update();
-    for(int i = 0; i <enemies.size(); i++) {
-       Enemy e = enemies.get(i);
+    for(int j = 0; j <enemies.size(); j++) {
+       Enemy e = enemies.get(j);
        if(e.checkCollision(t)){
          e.hp--;
        }

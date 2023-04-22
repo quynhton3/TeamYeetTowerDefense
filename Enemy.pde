@@ -10,7 +10,7 @@ class Enemy extends RadialObject {
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
   boolean isDead = false;
-  int hp = 5;
+  int hp = 150;
 
   Enemy() {
     teleportTo(gridP);
