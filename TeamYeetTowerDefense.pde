@@ -14,6 +14,12 @@ MainHUD mainHUD; //Q 21
 import ddf.minim.*;
 Minim minim;
 AudioPlayer bgMusic;
+AudioPlayer meow;
+AudioPlayer camera;
+AudioPlayer mouseClick; 
+AudioPlayer mouseClickDeep;
+AudioPlayer coinSFX;
+
 // PICTURES /////////////////////////////////////////////////////////////////////////////////////////////
 PImage titleScreen;
 PImage gameOverScreen;
@@ -77,6 +83,11 @@ void setup() {
   minim = new Minim(this); 
   bgMusic = minim.loadFile("bgMusic.mp3");
   bgMusic.loop();
+  meow = minim.loadFile("meow.mp3");
+  camera = minim.loadFile("camera.wav");
+  mouseClick = minim.loadFile("mouseClick.mp3");
+  mouseClickDeep = minim.loadFile("mouseClickDeep.wav");
+  coinSFX = minim.loadFile("coinSFX.wav");
 }
 void draw() {
   // UPDATE:
@@ -190,6 +201,7 @@ void draw() {
   //text(s4, 10, 60);
   if (shopOpen) { //Opens shop 
     shop.draw(); //Q 21
+    mouseClick.play();
   }
 } //END OF DRAW///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -232,20 +244,30 @@ void mousePressed() {
     //Main HUD /////////////////////////////////////////////////////////////////////////////
     if (isMouseOver(shopX, shopY, shopW, shopH, 255)) { //Shop Button
       shopOpen =true;
+      mouseClickDeep.rewind();
+      mouseClickDeep.play();
     }
 
     //Selected Item/////////////////////////////////////////////////////////////////////////
     if (isMouseOver(175, 125, 75, 75, 255) && coins >= fireCost) { //Fire 
       hasFire = true;
+      mouseClickDeep.rewind();
+      mouseClickDeep.play();
     }
     if (isMouseOver(275, 125, 75, 75, 255) && coins >= lightningCost) { //Lightning
       hasLightning = true;
+      mouseClick.rewind();
+      mouseClick.play();
     }
     if (isMouseOver(375, 125, 75, 75, 255) && coins >= iceCost) { //Ice
       hasIce = true;
+      mouseClick.rewind();
+      mouseClick.play();
     }
     if (isMouseOver(475, 125, 75, 75, 255) && coins >= entrophyCost) { //Entrophy
       hasEntrophy = true;
+      mouseClick.rewind();
+      mouseClick.play();
     }
     if (isMouseOver(575, 125, 75, 75, 255) && coins >= rockCost) { //Rock
       //  hasRock = true;
@@ -256,6 +278,9 @@ void mousePressed() {
     //}
 
     if (isMouseOver(675, 25, 100, 50, 200)) { //Exit button
+      mouseClick.rewind();
+      mouseClick.play();
+
       shopOpen = false;
     }
 
@@ -267,6 +292,12 @@ void mousePressed() {
       towers.add(new CatFire(cat1X, cat1Y));
       hasFire = false;
       VFXTimer = 20;
+      meow.rewind();
+      meow.play();
+      camera.play();
+      coinSFX.rewind();
+      coinSFX.play();
+
       shopOpen = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
@@ -274,6 +305,11 @@ void mousePressed() {
       coins -= lightningCost;
       towers.add(new CatLightning(cat2X, cat2Y));
       hasLightning = false;
+      meow.rewind();
+      meow.play();
+      camera.play();
+      coinSFX.play();
+
       shopOpen = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
@@ -281,6 +317,12 @@ void mousePressed() {
       coins -= iceCost;
       towers.add(new CatIce(cat3X, cat3Y));
       hasIce = false;
+      meow.rewind();
+      meow.play();
+      camera.play();
+      coinSFX.rewind();
+      coinSFX.play();
+
       shopOpen = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
@@ -288,6 +330,11 @@ void mousePressed() {
       towers.add(new CatEntropy(cat4X, cat4Y));
       coins -= entrophyCost;
       hasEntrophy = false;
+      meow.rewind();
+      meow.play();
+      camera.play();
+      coinSFX.rewind();
+      coinSFX.play();
       shopOpen = false;
     }
   }
