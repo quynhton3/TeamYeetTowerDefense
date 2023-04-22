@@ -159,6 +159,9 @@ void draw() {
   titleTimer --;
   if ( titleTimer > 0) {
     image(titleScreen, 0, 0);
+    textAlign(CENTER, CENTER);
+    fill(255, 50);
+    text("L o a d i n g . . .", width/2, height/2 +50);
   } else if (titleTimer <= 0) titleTimer =0;
   // TODO: using mouse position, get tile. set it's hover property to true
   //if (MouseInTiles()) {
