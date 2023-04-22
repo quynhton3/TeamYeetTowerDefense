@@ -30,6 +30,7 @@ int titleTimer = 100;
 
 boolean isExisting;
 int money = 500;
+int score;
 
 //Towers/Cats stuff 
 int tileSize;
@@ -96,7 +97,7 @@ void draw() {
   shop.update(); //Q 21
 
   coins ++; //Q 21
-
+  score ++; //Q 22
 
 
   enemySpawnCD--;
@@ -161,7 +162,7 @@ void draw() {
     image(titleScreen, 0, 0);
     textAlign(CENTER, CENTER);
     fill(255, 50);
-    text("L o a d i n g . . .", width/2, height/2 +50);
+    text("L O A D I N G . . .", width/2, height/2 +50);
   } else if (titleTimer <= 0) titleTimer =0;
   // TODO: using mouse position, get tile. set it's hover property to true
   //if (MouseInTiles()) {
