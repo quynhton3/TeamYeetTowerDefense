@@ -3,7 +3,7 @@ class MainHUD
 
 
 
-  int coinX = 30, coinY = 20;
+  int coinX = 30, coinY = 13;
 
   MainHUD()
   {
@@ -24,23 +24,25 @@ class MainHUD
 
     //Main HUD///////////////////////////////////////////////////////////////////////////////////////////////
     fill(0);
-    rect(0, 0, 900, 30); //top Backgroud Black
+    rect(0, 0, 1000, 30); //top Backgroud Black Bar
 
-    fill(255, 90);
+    fill(255, 110);
     textSize(18);
+    textAlign(LEFT, CENTER);
     text("$ :" + coins + " ", coinX, coinY);
     textSize(12);
 
 
-    fill(255);
-    textAlign(TOP, LEFT);
-    text("P L A Y", playX + 10, playY + 20);
-    if (isMouseOver(720, 380, 150, 30, 200)) { //Play button 
+    //fill(255);
+    //textAlign(TOP, LEFT);
+    //text("P L A Y", playX + 10, playY + 20);
+    //if (isMouseOver(720, 380, 150, 30, 200)) { //Play button 
 
 
       // PUT SPAWN ENEMIES CODE @Mikey
-    }
+    //}
 
+    textAlign(TOP, LEFT);
     fill(100, 255, 100, 80); //Green
     rect(shopX, shopY, shopW, shopH); //Shop Button bg
     isMouseOver(shopX, shopY, shopW, shopH, 200); //Shop button Hover

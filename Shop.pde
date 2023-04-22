@@ -1,6 +1,6 @@
 class Shop 
 {
-
+  int clickedOn;
   Shop()
   {
   }
@@ -19,9 +19,16 @@ class Shop
 
 
 
-    fill(0, 80);
-    rect(170, 120, 385, 85); //Dividers: Cats
-    rect(570, 120, 185, 85); //Dividers: Walls 
+    fill(170, 200);
+    //rect(170, 120, 385, 85); //Dividers: Cats
+
+    rect(170, 120, 85, 85);
+    rect(270, 120, 85, 85);
+    rect(370, 120, 85, 85);
+    rect(470, 120, 85, 85);
+    //rect(570, 120, 185, 85); //Dividers: Walls 
+
+    fill(120, 100);
     rect(descriptionX, descriptionY, 385, 70); //Description Square
 
 
@@ -30,12 +37,17 @@ class Shop
     rect(675, 25, 100, 50); 
     isMouseOver(675, 25, 100, 50, 200); //Exit button 
 
+    textSize(30);
+    fill(255, 200); 
+    text("X", 675 + 40, 25 + 35);
+
 
     fill(100, 255, 100, 230); //Green
+    fill(#5A9D79); //#5A9D79
     rect(buyX, buyY, buyW, buyH); 
     isMouseOver(buyX, buyY, buyW, buyH, 200); //Buy Button 
 
-    fill(255);
+    fill(255, 200);
     textSize(30);
     textAlign(CENTER, CENTER);
     text("B U Y ", buyX + buyW/2, buyY + buyH/2 -5);
@@ -49,6 +61,7 @@ class Shop
     if (isMouseOver(175, 125, 75, 75, 200)) { //Fire 
       fill(255);
       text("Is able to deal an AOE around the cat with flames ", descriptionX + 10, descriptionY + 20);
+
     }
     if (isMouseOver(275, 125, 75, 75, 200)) { //Lightning
       text("Can shoot lightning that bounces deal damage to surrounding", descriptionX + 10, descriptionY + 20);
@@ -60,32 +73,49 @@ class Shop
     if (isMouseOver(475, 125, 75, 75, 200)) { //Entrophy
       text("Attack 2 random enemies with 2 straight shots", descriptionX + 10, descriptionY + 20);
     }
-    if (isMouseOver(575, 125, 75, 75, 200)) { //Logs
-      text("Can take up 1 spaces to block enemies from passing through.", descriptionX + 10, descriptionY + 20);
+    //if (isMouseOver(575, 125, 75, 75, 200)) { //Logs
+    //  text("Can take up 1 spaces to block enemies from passing through.", descriptionX + 10, descriptionY + 20);
+    //}
+
+    //if (isMouseOver(675, 125, 75, 75, 200)) { //2Logs
+    //  text("Can take up 2 spaces to block enemies from passing through.", descriptionX + 10, descriptionY + 20);
+    //}
+    fill(0, 255, 0, 10); //green
+    if (hasFire == true) {
+      rect(175, 125, 75, 75);
+    }
+    if (hasLightning == true) {
+      rect(275, 125, 75, 75);
+    }
+    if (hasIce == true) {
+      rect(375, 125, 75, 75);
+    }
+    if (hasEntrophy == true) {
+      rect(475, 125, 75, 75);
     }
 
-    if (isMouseOver(675, 125, 75, 75, 200)) { //2Logs
-      text("Can take up 2 spaces to block enemies from passing through.", descriptionX + 10, descriptionY + 20);
-    }
 
 
-
-
-    fill(0, 255); //Text//////////////////////////////////
+    fill(0, 200); //Text//////////////////////////////////
     textAlign(CENTER, CENTER);
 
-    text("Towers", 200, 110);
-    text("Walls", 600, 110);
+    //text("Towers", 200, 110);
+    //text("Walls", 600, 110);
 
     text("Fire Cat", 175 + (35), 225);
     text("Lightning Cat", 275 + (35), 225);
     text("Ice Cat", 375 + (35), 225);
     text("Entrophy Cat", 475 + (35), 225);
 
-    text("Rock", 575 + 35, 225);
-    text("Log", 675 + 35, 225);
+    textAlign(RIGHT, CENTER);
+    fill(255, 150);
+    text("$900", 175 + (35) + 30, 225 - 40);
+    text("$600", 275 + (35) + 30, 225 - 40);
+    text("$1200", 375 + (35) + 30, 225 - 40);
+    text("$400", 475 + (35) + 30, 225 - 40);
 
 
-
+    //    text("Rock", 575 + 35, 225);
+    //    text("Log", 675 + 35, 225);
   }
 }

@@ -16,14 +16,18 @@ int tileSize;
 float time;
 ArrayList<Tower> towers = new ArrayList<Tower>();
 
+boolean fireCatAttacked, lightningCatAttack, iceCatAttack, entropyCatAttacked;
+int cat1X = 225, cat1Y = 225, cat2X = 525, cat2Y = 225, cat3X = 625, cat3Y = 225, cat4X = 424, cat4Y = 225; //Cat's positions for the easier spawning way xD 
+int VFXTimer; 
 //Shop Variables/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int coins; //Q 21 
+int coins = 10000; //Q 21 
 boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
-int fireCost = 90, iceCost = 60, lightningCost = 120, entrophyCost = 40, rockCost = 15, logCost = 20; //Q 21
+int fireCost = 900, iceCost = 600, lightningCost = 1200, entrophyCost = 400, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
+boolean isCircleMode;
 //Shop Buttons
 int buyX = 570, buyY = 300, buyW = 185, buyH = 70;
 
@@ -34,6 +38,7 @@ int playX = 720, playY = 380, playW = 150, playH = 30;
 
 boolean mouseClicked; //Q 21
 void setup() {
+  background(5);
   size(926, 428);
   TileHelper.app = this;
   level = new Level();
@@ -48,10 +53,11 @@ void setup() {
 }
 void draw() {
   // UPDATE:
-  println(towers.size());
+  //println(towers.size());
   mainHUD.update(); //Q 21
   shop.update(); //Q 21
 
+  coins ++; //Q 21
 
 
 
@@ -60,7 +66,7 @@ void draw() {
   if (enemySpawnCD<=0) {
     Enemy e = new Enemy();
     enemies.add(e);
-    enemySpawnCD=15;
+    enemySpawnCD= 100;
   }
 
 
@@ -69,10 +75,10 @@ void draw() {
     e.update();
     if (e.checkCollision(base)) {
       base.hp--;
-      println(base.hp);
+      //println(base.hp);
       e.isDead = true;
     }
-    if(e.hp==0){
+    if (e.hp==0) {
       e.isDead=true;
     }
     if (e.isDead) {
@@ -83,12 +89,12 @@ void draw() {
   for (int i = 0; i <towers.size(); i++) {
     Tower t = towers.get(i);
     t.update();
-    for(int j = 0; j <enemies.size(); j++) {
-       Enemy e = enemies.get(j);
-       if(e.checkCollision(t)){
-         e.hp--;
-       }
-       ;
+    for (int j = 0; j <enemies.size(); j++) {
+      Enemy e = enemies.get(j);
+      if (e.checkCollision(t)) {
+        e.hp--;
+      }
+      ;
     }
   }
 
@@ -106,11 +112,10 @@ void draw() {
 
   //Bar at Bottom
   fill(0);
-  rect(0, height - 100, width, 500);
+  rect(0, height - 70, width, 500);
 
-
+  //print(VFXTimer);
   mainHUD.draw(); //Q 21
-
 
 
   // TODO: using mouse position, get tile. set it's hover property to true
@@ -123,11 +128,23 @@ void draw() {
   //}
 
 
+  // VFX /////////////////////////////////////////////////////////////////////////////////
+  fill(200, 0, 0, 200); //Red
+  if (fireCatAttacked && VFXTimer > 0) {
+    ellipse(cat1X, cat2Y, 150, 150); 
+    VFXTimer--;
+    fireCatAttacked = false;
+  } else if (VFXTimer <= 0) { //
+    fireCatAttacked = false;
+    VFXTimer = 30;
+  }
+
+
 
   // TODO: draw a little ellipse in the tile's center
   PVector m = tile.getCenter();
   fill(0);
-  ellipse(m.x, m.y, 8, 8);
+  //ellipse(m.x, m.y, 8, 8); //Tiny dot on the start 
 
 
   // DRAW DEBUG INFO:
@@ -146,7 +163,7 @@ void draw() {
 } //END OF DRAW///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 boolean MouseInTiles() {
-  if (mouseX <= width - 100 && mouseY >= height - 50) { //UI area
+  if (mouseX <= width - 50 && mouseY >= height - 50) { //UI area
     return true;
   }
   return false;
@@ -177,7 +194,7 @@ void mousePressed() {
   //} else {
   //player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
 
-  //BUTTONNNNNNNNNNNNNNNNNNN//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // BUTTONNNNNNNNNNNNNNNNNNN //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (mouseButton == LEFT) { //Q 21
     mouseClicked = true;
     mouseClicked = false;
@@ -187,57 +204,62 @@ void mousePressed() {
     }
 
     //Selected Item/////////////////////////////////////////////////////////////////////////
-    if (isMouseOver(175, 125, 75, 75, 255)) { //Fire 
+    if (isMouseOver(175, 125, 75, 75, 255) && coins >= fireCost) { //Fire 
       hasFire = true;
     }
-    if (isMouseOver(275, 125, 75, 75, 255) == true) { //Lightning
+    if (isMouseOver(275, 125, 75, 75, 255) && coins >= lightningCost) { //Lightning
       hasLightning = true;
     }
-    if (isMouseOver(375, 125, 75, 75, 255)) { //Ice
+    if (isMouseOver(375, 125, 75, 75, 255) && coins >= iceCost) { //Ice
       hasIce = true;
     }
-    if (isMouseOver(475, 125, 75, 75, 255)) { //Entrophy
+    if (isMouseOver(475, 125, 75, 75, 255) && coins >= entrophyCost) { //Entrophy
       hasEntrophy = true;
     }
-    if (isMouseOver(575, 125, 75, 75, 255)) { //Rock
-      hasRock = true;
+    if (isMouseOver(575, 125, 75, 75, 255) && coins >= rockCost) { //Rock
+      //  hasRock = true;
+      isCircleMode = true;
     }
-    if (isMouseOver(675, 125, 75, 75, 255)) { //Log
-      hasLog = true;
-    }
+    //if (isMouseOver(675, 125, 75, 75, 255)) { //Log
+    //  hasLog = true;
+    //}
 
     if (isMouseOver(675, 25, 100, 50, 200)) { //Exit button
       shopOpen = false;
     }
 
+
     //Brought///////////////////////////////////////////////////////////////////////////////
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
       //Drag log code here: @James
       coins -= fireCost;
-      towers.add(new CatFire(225, 225));
-
-      print("hasBroughtFire");
+      towers.add(new CatFire(cat1X, cat1Y));
+      hasFire = false;
+      VFXTimer = 20;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
       //Drag log code here: @James
       coins -= lightningCost;
-      towers.add(new CatLightning(525, 225));
+      towers.add(new CatLightning(cat2X, cat2Y));
+      hasLightning = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
       //Drag log code here: @James
       coins -= iceCost;
-      towers.add(new CatIce(625, 225));
+      towers.add(new CatIce(cat3X, cat3Y));
+      hasIce = false;
     }
     if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
       //Drag log code here: @James
-      towers.add(new CatEntropy(425, 225));
+      towers.add(new CatEntropy(cat4X, cat4Y));
       coins -= entrophyCost;
+      hasEntrophy = false;
     }
   }
   //}//End mousePressed
 } // end of MousePressed
 void keyPressed() {
-  if (debug) println(keyCode);
+  //if (debug) println(keyCode);
 
   if (keyCode == 49) level.loadLevel(LevelDefs.LEVEL1);
   if (keyCode == 50) level.loadLevel(LevelDefs.LEVEL2);
