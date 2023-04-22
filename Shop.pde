@@ -12,29 +12,27 @@ class Shop
   void draw()
   {
     fill(240, 200);
-    rect(150, 25, 625, 375); //Back of Window
+    rect(150, 25, 625, 375, 2); //Back of Window
 
     fill(25, 25, 255, 180);
-    rect(150, 25, 625, 50); //Blue Top of Window 
+    rect(150, 25, 625, 50, 0); //Blue Top of Window 
 
 
 
     fill(170, 200);
-    //rect(170, 120, 385, 85); //Dividers: Cats
+    //rect(170, 120, 385, 82); //Dividers: Cats
 
-    rect(170, 120, 85, 85);
-    rect(270, 120, 85, 85);
-    rect(370, 120, 85, 85);
-    rect(470, 120, 85, 85);
-    //rect(570, 120, 185, 85); //Dividers: Walls 
+    rect(170, 120, 85, 85, 2);
+    rect(270, 120, 85, 85, 2);
+    rect(370, 120, 85, 85, 2);
+    rect(470, 120, 85, 85, 2);
+    //rect(570, 120, 185, 82); //Dividers: Walls 
 
     fill(120, 100);
-    rect(descriptionX, descriptionY, 385, 70); //Description Square
-
-
+    rect(descriptionX, descriptionY, 385, 70, 2); //Description Square
 
     fill(255, 100, 100, 200); //Red
-    rect(675, 25, 100, 50); 
+    rect(675, 25, 100, 50, 0); 
     isMouseOver(675, 25, 100, 50, 200); //Exit button 
 
     textSize(30);
@@ -44,15 +42,16 @@ class Shop
 
     fill(100, 255, 100, 230); //Green
     fill(#5A9D79); //#5A9D79
-    rect(buyX, buyY, buyW, buyH); 
+    rect(buyX, buyY, buyW, buyH, 2); 
     isMouseOver(buyX, buyY, buyW, buyH, 200); //Buy Button 
 
     fill(255, 200);
     textSize(30);
     textAlign(CENTER, CENTER);
     text("B U Y ", buyX + buyW/2, buyY + buyH/2 -5);
-    textSize(12);
-
+    //textSize(28);
+    //text("S H O P ", 220, 45);
+   textSize(12);
 
     //Buttons of Cat Towers & Logs ///////////////////////////////////////////////////////////////////////////////////////////////
     //Change Description 
@@ -61,7 +60,6 @@ class Shop
     if (isMouseOver(175, 125, 75, 75, 200)) { //Fire 
       fill(255);
       text("Is able to deal an AOE around the cat with flames ", descriptionX + 10, descriptionY + 20);
-
     }
     if (isMouseOver(275, 125, 75, 75, 200)) { //Lightning
       text("Can shoot lightning that bounces deal damage to surrounding", descriptionX + 10, descriptionY + 20);
@@ -82,16 +80,16 @@ class Shop
     //}
     fill(0, 255, 0, 10); //green
     if (hasFire == true) {
-      rect(175, 125, 75, 75);
+      rect(175, 125, 75, 75, 2);
     }
     if (hasLightning == true) {
-      rect(275, 125, 75, 75);
+      rect(275, 125, 75, 75, 2);
     }
     if (hasIce == true) {
-      rect(375, 125, 75, 75);
+      rect(375, 125, 75, 75, 2);
     }
     if (hasEntrophy == true) {
-      rect(475, 125, 75, 75);
+      rect(475, 125, 75, 75, 2);
     }
 
 
@@ -115,7 +113,7 @@ class Shop
     text("$400", 475 + (35) + 30, 225 - 40);
 
 
-    //    text("Rock", 575 + 35, 225);
-    //    text("Log", 675 + 35, 225);
+    //    text("Rock", 575 + 35, 222);
+    //    text("Log", 675 + 35, 222);
   }
 }

@@ -175,16 +175,16 @@ boolean isMouseOver(int x, int y, int w, int h, int buttonHovered) {
   if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse is hovered over
     fill(255, 80);
     noStroke();
-    rect(x, y, w, h);
+    rect(x, y, w, h, 2);
 
     fill(buttonHovered);
-    rect(x, y, w, h);
+    rect(x, y, w, h, 2);
     fill(255);//for White Text
     return true;
   } else { //When mouse is NOT hovered over
     noStroke();
     fill(255, 80);
-    rect(x, y, w, h);
+    rect(x, y, w, h, 2);
     return false;
   }
 }

@@ -44,7 +44,7 @@ class MainHUD
 
     textAlign(TOP, LEFT);
     fill(100, 255, 100, 80); //Green
-    rect(shopX, shopY, shopW, shopH); //Shop Button bg
+    rect(shopX, shopY, shopW, shopH, 2); //Shop Button bg
     isMouseOver(shopX, shopY, shopW, shopH, 200); //Shop button Hover
     fill(100, 200, 100);
     fill(255);
