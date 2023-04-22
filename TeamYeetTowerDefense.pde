@@ -298,6 +298,7 @@ void mousePressed() {
       VFXTimer = 20;
       meow.rewind();
       meow.play();
+      camera.rewind();
       camera.play();
       coinSFX.rewind();
       coinSFX.play();
@@ -311,6 +312,7 @@ void mousePressed() {
       hasLightning = false;
       meow.rewind();
       meow.play();
+      camera.rewind();
       camera.play();
       coinSFX.play();
 
@@ -323,6 +325,7 @@ void mousePressed() {
       hasIce = false;
       meow.rewind();
       meow.play();
+      camera.rewind();
       camera.play();
       coinSFX.rewind();
       coinSFX.play();
@@ -336,6 +339,7 @@ void mousePressed() {
       hasEntrophy = false;
       meow.rewind();
       meow.play();
+      camera.rewind();
       camera.play();
       coinSFX.rewind();
       coinSFX.play();
