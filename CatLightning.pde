@@ -4,7 +4,7 @@ class CatLightning extends Tower {
   int maxTargets = 3;
   
   boolean canAttack = true;
-  int coolDown = 120;
+  int coolDown = 3;
   int CD = coolDown;
   
   // Arraylist for lighting effect
@@ -15,9 +15,9 @@ class CatLightning extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 1;
+    atkDamage = 70;
     atkSpeed = 10.0;
-    maxRange = 400;
+    maxRange = 200;
     
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value
   }
@@ -28,12 +28,32 @@ class CatLightning extends Tower {
 
   void draw() {
     super.draw();
+    
+    if (!lightningPoints.isEmpty()) {
+      // Draw lightning
+      stroke(255,255,0);
+      strokeWeight(3);
+      PVector fp = lightningPoints.get(0);
+      line(x,y,fp.x,fp.y);
+      for (int i = 0; i < lightningPoints.size() - 1; i++) {
+        PVector p1 = lightningPoints.get(i);
+        PVector p2 = lightningPoints.get(i + 1);
+        line(p1.x,p1.y,p2.x,p2.y);
+      }
+      strokeWeight(0);
+    }
+    
+    noFill();
+    stroke(255);
+    strokeWeight(1);
+    ellipse(x,y,maxRange * 2,maxRange * 2);
   }
 
   //Unique cat code goes here
   void attack() {
     if (canAttack) {
-      println("lightning cat attack!");
+      //println("Attack!");
+      canAttack = false;
       
       // Create an array for all enemies to attack
       ArrayList<Enemy> targetEnemies = new ArrayList<Enemy>();
@@ -60,6 +80,8 @@ class CatLightning extends Tower {
       // Damage targeted enemies and draw lighting effect between them
       for (int i = 1; i < targetEnemies.size(); i++) {
         targetEnemies.get(i).hp -= atkDamage;
+        PVector lPos = targetEnemies.get(i).position;
+        lightningPoints.add(new PVector(lPos.x, lPos.y));
       }
     }
     else {
@@ -68,18 +90,6 @@ class CatLightning extends Tower {
         canAttack = true;
         CD = coolDown;
         lightningPoints.clear();
-      }
-      else {
-        // Draw lightning
-        stroke(255,255,0);
-        strokeWeight(3);
-        PVector fp = lightningPoints.get(0);
-        line(x,y,fp.x,fp.y);
-        for (int i = 0; i < lightningPoints.size() - 1; i++) {
-          PVector p1 = lightningPoints.get(i);
-          PVector p2 = lightningPoints.get(i + 1);
-          line(p1.x,p1.y,p2.x,p2.y);
-        }
       }
     }
   }
