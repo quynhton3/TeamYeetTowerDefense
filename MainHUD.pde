@@ -33,7 +33,7 @@ class MainHUD
     //text("S C O R E : " + score, 400, height -40);
     textSize(14);
     text("S C O R E : " + score, 780, coinY +1);
-
+    text(" H E A L T H: " , 770, height - 40);
     textSize(12);
     //fill(255);
     //textAlign(TOP, LEFT);
@@ -52,7 +52,7 @@ class MainHUD
     fill(255);
     text(" S H O P", shopX +10, shopY +20);
 
-    text(" H E A L T H" + hp, 780, height - 100);
+
 
     //isMouseOver(720, 380, 150, 30, 200); //Play Button Hover
 
