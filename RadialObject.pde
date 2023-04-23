@@ -6,6 +6,7 @@ class RadialObject
   PImage img;
   PImage[] imgs;
   
+  
   RadialObject()
   {
     

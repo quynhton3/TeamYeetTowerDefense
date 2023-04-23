@@ -4,8 +4,8 @@ static class TileHelper {
 
   static TeamYeetTowerDefense app;
   static boolean isHex = true;
-  final static int W = 50;
-  final static int H = 50;
+  final static int W = 54; //WAS 50
+  final static int H = 54;
   final static int halfW = W / 2;
   final static int halfH = H / 2;
 
@@ -43,15 +43,15 @@ class Tile {
   // DRAW THIS TILE:
   void draw() {
     if (TERRAIN == 0) {
-      if (TileHelper.isHex) fill(127);
+      if (TileHelper.isHex) fill(0, 30); 
       else if (hover) {
       } else return; // don't draw empty tiles
     }
-    if (TERRAIN == 1) fill(200);
-    if (TERRAIN == 2) fill(255);
+    if (TERRAIN == 1) fill(230); //path
+    if (TERRAIN == 2) fill(10); //Walls
     if (hover) fill(255, 255, 0);
 
-    if (TileHelper.isHex) {
+    if (TileHelper.isHex ) {
       PVector p = getCenter();
       ellipse(p.x, p.y, TileHelper.W, TileHelper.H);
     } else {

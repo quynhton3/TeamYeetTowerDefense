@@ -1,5 +1,5 @@
 class CatFire extends Tower {
-
+  int timer = 100;
   CatFire(float x, float y) {
     super(x, y, 1);
 
@@ -7,7 +7,7 @@ class CatFire extends Tower {
     cost = 1;
     atkDamage = 1;
     atkSpeed = 10.0;
-    
+
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value
   }
 
@@ -21,6 +21,8 @@ class CatFire extends Tower {
 
   //Unique cat code goes here
   void attack() {
-    println("fire cat attack!");
+    fireCatAttacked = true; 
+    
+    //println("fire cat attack!"+1);
   }
 }

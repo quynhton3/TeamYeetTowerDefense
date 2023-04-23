@@ -9,14 +9,12 @@ class Enemy extends RadialObject {
 
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
-  
-  float health;
+  boolean isDead = false;
+  int hp = 150;
 
   Enemy() {
     teleportTo(gridP);
     setTargetPosition(TileHelper.pixelToGrid(new PVector(850,275)));
-    
-    health = 100;
   }
   void teleportTo(Point gridP) {
     Tile tile = level.getTile(gridP);
@@ -31,6 +29,8 @@ class Enemy extends RadialObject {
     findPath = true;
   }
   void update() {
+    position = pixlP;
+    
     if (findPath == true) findPathAndTakeNextStep();
     updateMove();
   }
@@ -65,8 +65,8 @@ class Enemy extends RadialObject {
   }
   void draw() {
     noStroke();
-    fill(0);
-    ellipse(pixlP.x, pixlP.y, 28, 28);
+    fill(255,200); //Enemy color
+    ellipse(pixlP.x, pixlP.y, 22, 22);
     drawPath();
   }
   void drawPath() {
@@ -75,11 +75,11 @@ class Enemy extends RadialObject {
       PVector prevP = pixlP.get();
       for (int i = 1; i < path.size (); i++) {
         PVector currP = path.get(i).getCenter();
-        line(prevP.x, prevP.y, currP.x, currP.y);
+        //line(prevP.x, prevP.y, currP.x, currP.y);
         prevP = currP;
       }
       noStroke();
-      ellipse(prevP.x, prevP.y, 8, 8);
+      //ellipse(prevP.x, prevP.y, 8, 8); //dot where it ends
     }
   }
 }
