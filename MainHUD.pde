@@ -52,7 +52,7 @@ class MainHUD
     fill(255);
     text(" S H O P", shopX +10, shopY +20);
 
-
+    text(" H E A L T H" + hp, 780, height - 100);
 
     //isMouseOver(720, 380, 150, 30, 200); //Play Button Hover
 

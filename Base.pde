@@ -10,7 +10,7 @@ class Base extends RadialObject{
    }
    void draw(){
      fill(#FF0303);
-    ellipse(position.x, position.y, 25,25);
+    //ellipse(position.x, position.y, 25,25);
     noFill();
     
  }
