@@ -8,7 +8,7 @@ int ENTROPY_CAT = 4;
 // This class creates a tower
 class Tower extends RadialObject {
   //Visual Properties
-  float x, y, r;
+  float x, y, r, maxRange;
   int towerType;
   PImage img;
 
@@ -37,7 +37,7 @@ class Tower extends RadialObject {
     //Attack Speed Timer
     atkTimer -= time;
 
-    if (atkTimer <= 0) {
+    if (atkTimer <= 0 && !enemies.isEmpty()) {
 
       attack(); //Calls the child's attack function cuz polymorphism
       atkTimer = atkSpeed;
@@ -50,8 +50,19 @@ class Tower extends RadialObject {
     //ellipse(
   }
 
-  void getNearestEnemy() {
+  Enemy getNearestEnemy() {
     //Called by all cats except entropy
+    Enemy closestEnemy = enemies.get(0);
+    float closestDist = dist(x,y,closestEnemy.position.x,closestEnemy.position.y);
+    for (int i = 1; i < enemies.size(); i++) {
+      Enemy curEnemy = enemies.get(i);
+      float curDist = dist(x,y,curEnemy.position.x,curEnemy.position.y);
+      if (curDist < closestDist) {
+        closestEnemy = curEnemy;
+        closestDist = curDist;
+      }
+    }
+    return closestEnemy;
   }
 
   void attack() {
