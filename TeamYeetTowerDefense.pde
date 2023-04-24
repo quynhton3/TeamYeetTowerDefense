@@ -178,6 +178,10 @@ void draw() {
     }
   }
 
+
+
+
+
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
   level.draw();
@@ -189,6 +193,18 @@ void draw() {
   for (Tower t : towers) {
     t.draw();
   }
+
+
+  //if (CatIce.attack()) {
+  //  Bullet b = new Bullet(enemies.x, enemies.y);
+  //  b.target = new PVector(mouseX, mouseY);
+  //  bullets.add(b);
+  //}
+
+
+
+
+
 
   //Bar at Bottom
   fill(0);
