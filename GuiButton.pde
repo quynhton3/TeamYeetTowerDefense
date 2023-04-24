@@ -105,7 +105,7 @@ class TowerIcon extends GuiButton {
         }
         
         Tile placeTile = level.getTile(TileHelper.pixelToGrid(new PVector(mouseX,mouseY)));
-        if (placeTile.TERRAIN != 2) return;
+        if (placeTile.TERRAIN != 2 || mouseY > 350) return;
         
         // Place new tower
         if (towerType == 1) {

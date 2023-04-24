@@ -48,7 +48,7 @@ boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
-int fireCost = 200, iceCost = 600, lightningCost = 1200, entropyCost = 400, rockCost = 150, logCost = 200; //Q 21
+int fireCost = 200, iceCost = 400, lightningCost = 500, entropyCost = 300, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
 boolean isCircleMode;
 
@@ -133,7 +133,7 @@ void draw() {
   mainHUD.update(); //Q 21
   shop.update(); //Q 21
 
-  coins ++; //Q 21
+  //coins ++; //Q 21
   score ++; //Q 22
 
 
@@ -142,8 +142,9 @@ void draw() {
   if (enemySpawnCD<=0) {
     enemyMaxCD *= 0.99;
     if (enemyMaxCD <= 20) {
-      enemyMaxCD = 10;
+      enemyMaxCD = 20;
     }
+    defaultHP *= 1.02;
     Enemy e = new Enemy();
     enemies.add(e);
     enemySpawnCD= enemyMaxCD;
@@ -163,7 +164,7 @@ void draw() {
     }
     if (e.isDead) {
       enemies.remove(e);
-      money += 20;
+      coins += 30;
     }
   }
   for (int i = 0; i <towers.size(); i++) {
