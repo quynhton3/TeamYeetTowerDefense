@@ -3,8 +3,7 @@ class CatLightning extends Tower {
   // How many enemies the lighting tower can attack at once
   int maxTargets = 3;
   
-  boolean canAttack = true;
-  float coolDown, CD;
+  float coolDown = 15, CD = coolDown;
   
   // Arraylist for lighting effect
   ArrayList<PVector> lightningPoints = new ArrayList<PVector>();
@@ -16,8 +15,6 @@ class CatLightning extends Tower {
     cost = 1;
     atkDamage = 20;
     atkSpeed = 25.0;
-    coolDown = 15;
-    CD = coolDown;
     maxRange = 170;
     
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value
@@ -59,7 +56,6 @@ class CatLightning extends Tower {
   //Unique cat code goes here
   void attack() {
     //println("Attack!");
-    canAttack = false;
     
     // Create an array for all enemies to attack
     ArrayList<Enemy> targetEnemies = new ArrayList<Enemy>();

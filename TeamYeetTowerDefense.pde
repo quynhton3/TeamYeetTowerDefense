@@ -48,7 +48,7 @@ boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
-int fireCost = 900, iceCost = 600, lightningCost = 200, entropyCost = 400, rockCost = 150, logCost = 200; //Q 21
+int fireCost = 900, iceCost = 600, lightningCost = 1200, entropyCost = 400, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
 boolean isCircleMode;
 
@@ -101,10 +101,10 @@ void setup() {
   coinSFX = minim.loadFile("coinSFX.wav");
   coinSFX.setGain(-10);
   
-  towerIcons.add(new TowerIcon(50,395,40,40,FIRE_CAT));
-  towerIcons.add(new TowerIcon(100,395,40,40,LIGHTNING_CAT));
-  towerIcons.add(new TowerIcon(150,395,40,40,ICE_CAT));
-  towerIcons.add(new TowerIcon(200,395,40,40,ENTROPY_CAT));
+  towerIcons.add(new TowerIcon(50,385,40,40,FIRE_CAT));
+  towerIcons.add(new TowerIcon(150,385,40,40,LIGHTNING_CAT));
+  towerIcons.add(new TowerIcon(250,385,40,40,ICE_CAT));
+  towerIcons.add(new TowerIcon(350,385,40,40,ENTROPY_CAT));
   
   // Fire cat description
   towerDesc.add("Does like 10 damage per shot. Likes hanging with Brandon in\nIRC 104. Appreciates Brandon's work and looks up to\nhis soundboard. Big fan of Mike.");
@@ -195,7 +195,7 @@ void draw() {
   rect(0, height - 70, width, 500);
 
   //print(VFXTimer);
-  //mainHUD.draw(); //Q 21
+  mainHUD.draw(); //Q 21
 
   //DRAWS TITLE SCREEN ////////////////////////////////////////////////////////
   titleTimer --;
@@ -216,15 +216,15 @@ void draw() {
 
 
   // VFX /////////////////////////////////////////////////////////////////////////////////
-  fill(200, 0, 0, 200); //Red
-  if (fireCatAttacked && VFXTimer > 0) {
-    ellipse(cat1X, cat2Y, 150, 150); 
-    VFXTimer--;
-    fireCatAttacked = false;
-  } else if (VFXTimer <= 0) { //
-    fireCatAttacked = false;
-    VFXTimer = 30;
-  }
+  //fill(200, 0, 0, 200); //Red
+  //if (fireCatAttacked && VFXTimer > 0) {
+  //  ellipse(cat1X, cat2Y, 150, 150); 
+  //  VFXTimer--;
+  //  fireCatAttacked = false;
+  //} else if (VFXTimer <= 0) { //
+  //  fireCatAttacked = false;
+  //  VFXTimer = 30;
+  //}
 
 
 

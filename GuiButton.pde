@@ -104,8 +104,8 @@ class TowerIcon extends GuiButton {
           }
         }
         
-        //x = newXPos;
-        //y = newYPos;
+        Tile placeTile = level.getTile(TileHelper.pixelToGrid(new PVector(mouseX,mouseY)));
+        if (placeTile.TERRAIN != 2) return;
         
         // Place new tower
         if (towerType == 1) {
@@ -151,14 +151,20 @@ class TowerIcon extends GuiButton {
   void draw() {
     //super.draw();
     imageMode(CENTER);
+    if (!canBuy(towerType)) tint(255,100,100,100);
     image(towerIconSprites.get(towerType - 1), x, y);
+    noTint();
     imageMode(CORNER);
+    textAlign(CENTER,CENTER);
+    fill(255);
+    text("$" + getCost(towerType), x - 4, y + 30);
+    textAlign(LEFT,TOP);
     
     // Show tower description
     if (hovering && hoveringTower == this) {
       fill(255);
       textAlign(LEFT,TOP);
-      text(towerDesc.get(towerType - 1), 235, 370);
+      text(towerDesc.get(towerType - 1), 435, 370);
     }
   }
 }
@@ -166,11 +172,26 @@ class TowerIcon extends GuiButton {
 void mouseDragged() {
   dragging = true;
   // If nothing is being held and player is hovering over a tower, grab it
-  if (heldIcon == null && hoveringButton == hoveringTower) {
+  if (heldIcon == null && hoveringButton == hoveringTower && canBuy(hoveringTower.towerType)) {
     heldIcon = hoveringTower;
   }
 }
 
 void mouseReleased() {
   dragging = false;
+}
+
+boolean canBuy(int towerType) {
+  if (towerType == 1 && coins >= fireCost) return true;
+  else if (towerType == 2 && coins >= lightningCost) return true;
+  else if (towerType == 3 && coins >= iceCost) return true;
+  else if (towerType == 4 && coins >= entropyCost) return true;
+  return false;
+}
+
+int getCost(int towerType) {
+  if (towerType == 1) return fireCost;
+  else if (towerType == 2) return lightningCost;
+  else if (towerType == 3) return iceCost;
+  else return entropyCost;
 }

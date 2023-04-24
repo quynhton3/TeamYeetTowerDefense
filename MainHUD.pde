@@ -44,13 +44,13 @@ class MainHUD
     // PUT SPAWN ENEMIES CODE @Mikey
     //}
 
-    textAlign(TOP, LEFT);
-    fill(100, 255, 100, 80); //Green
-    rect(shopX, shopY, shopW, shopH, 2); //Shop Button bg
-    isMouseOver(shopX, shopY, shopW, shopH, 200); //Shop button Hover
-    fill(100, 200, 100);
-    fill(255);
-    text(" S H O P", shopX +10, shopY +20);
+    //textAlign(TOP, LEFT);
+    //fill(100, 255, 100, 80); //Green
+    //rect(shopX, shopY, shopW, shopH, 2); //Shop Button bg
+    //isMouseOver(shopX, shopY, shopW, shopH, 200); //Shop button Hover
+    //fill(100, 200, 100);
+    //fill(255);
+    //text(" S H O P", shopX +10, shopY +20);
 
 
 
