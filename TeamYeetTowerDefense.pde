@@ -1,7 +1,8 @@
 boolean debug = false;
 Level level;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-int enemySpawnCD = 100;
+int enemyMaxCD = 100;
+int enemySpawnCD = enemyMaxCD;
 Pathfinder pathfinder;
 Base base;
 Tile tile;
@@ -86,12 +87,13 @@ void setup() {
   bgMusic.setGain(-10);
   bgMusic.loop();
   meow = minim.loadFile("meow.mp3");
+  meow.setGain(-5);
   camera = minim.loadFile("camera.wav");
   camera.setGain(-10);
   mouseClick = minim.loadFile("mouseClick.mp3");
   mouseClick.setGain(-5);
   mouseClickDeep = minim.loadFile("mouseClickDeep.wav");
-  mouseClickDeep.setGain(-10);
+  mouseClickDeep.setGain(-20);
   coinSFX = minim.loadFile("coinSFX.wav");
   coinSFX.setGain(-10);
 }
@@ -108,9 +110,13 @@ void draw() {
   enemySpawnCD--;
   /////////////////////////////Enemies spawner
   if (enemySpawnCD<=0) {
+    enemyMaxCD *= 0.99;
+    if (enemyMaxCD <= 20) {
+      enemyMaxCD = 20;
+    }
     Enemy e = new Enemy();
     enemies.add(e);
-    enemySpawnCD= 200;
+    enemySpawnCD= enemyMaxCD;
   }
 
 
