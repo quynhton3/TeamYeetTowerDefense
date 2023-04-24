@@ -48,7 +48,7 @@ boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
-int fireCost = 900, iceCost = 600, lightningCost = 1200, entropyCost = 400, rockCost = 150, logCost = 200; //Q 21
+int fireCost = 200, iceCost = 600, lightningCost = 1200, entropyCost = 400, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
 boolean isCircleMode;
 
