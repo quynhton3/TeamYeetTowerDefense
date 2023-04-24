@@ -8,7 +8,7 @@ Base base;
 Tile tile;
 Shop shop; //Q 21
 MainHUD mainHUD; //Q 21
-
+boolean gameStarted = false;
 
 //SOUNDS ///////////////////////////////////////////////////////////////////////////////////////////////
 //Music from https://uppbeat.io/browse/music/lo-fi-beats?rt=ppc_google_performance_general_usa&utm_source=google&utm_medium=cpc&utm_campaign=search_performance_usa&utm_content=&utm_term=&gad=1&gclid=Cj0KCQjwi46iBhDyARIsAE3nVraK6LP2o6mq-DvnGFVBQAmAHif89dX3iCAZWTFYNwOLoR-uuvC25Y4aArx1EALw_wcB
@@ -88,8 +88,8 @@ void setup() {
   // MUSIC ////////////////////////////////////
   minim = new Minim(this); 
   bgMusic = minim.loadFile("bgMusic.mp3");
-  bgMusic.setGain(-10);
-  bgMusic.loop();
+  bgMusic.setGain(-15);
+  
   meow = minim.loadFile("meow.mp3");
   meow.setGain(-5);
   camera = minim.loadFile("camera.wav");
@@ -107,7 +107,7 @@ void setup() {
   towerIcons.add(new TowerIcon(350,385,40,40,ENTROPY_CAT));
   
   // Fire cat description
-  towerDesc.add("Does like 10 damage per shot. Likes hanging with Brandon in\nIRC 104. Appreciates Brandon's work and looks up to\nhis soundboard. Big fan of Mike.");
+  towerDesc.add("Attacks in a radius around itself. Likes hanging with Brandon in\nIRC 104. Appreciates Brandon's work and looks up to\nhis soundboard. Big fan of Mike.");
   
   // Lightning cat description
   towerDesc.add("Lightning attacks bounce between enemies! Favorite person\nis CodeGods Jennyboo and Jay <344. Thinks James is funny.");
@@ -116,7 +116,7 @@ void setup() {
   towerDesc.add("Able to do up to 30 damage to an enemy!! Enjoys the Khelben.\nThinks Khelben has a big head. Is v fond of Mr.Ty & amused by\nhis comments.");
   
   // Entropy cat description
-  towerDesc.add("A strong boi, ez 1 taps!!!! Works out and likes long walks on\nthe beach. Works out with Fill, the Vaarun, and Seabasses!");
+  towerDesc.add("Attacks random enemies! Works out and likes long walks on\nthe beach. Works out with Fill, the Vaarun, and Seabasses!");
   
   towerIconSprites.add(loadImage("tower1.png"));
   towerIconSprites.add(loadImage("tower2.png"));
@@ -204,7 +204,15 @@ void draw() {
     textAlign(CENTER, CENTER);
     fill(255, 50);
     text("L O A D I N G . . .", width/2, height/2 +50);
-  } else if (titleTimer <= 0) titleTimer =0;
+  } else if (titleTimer <= 0) {
+    titleTimer = 0;
+    
+    // Runs once when game starts
+    if (!gameStarted) {
+      bgMusic.loop();
+      gameStarted = true;
+    }
+  };
   // TODO: using mouse position, get tile. set it's hover property to true
   //if (MouseInTiles()) {
   //  Point g = TileHelper.pixelToGrid(new PVector(mouseX, mouseY));
