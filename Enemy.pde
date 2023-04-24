@@ -14,7 +14,7 @@ class Enemy extends RadialObject {
 
   Enemy() {
     teleportTo(gridP);
-    setTargetPosition(TileHelper.pixelToGrid(new PVector(850,275)));
+    setTargetPosition(TileHelper.pixelToGrid(new PVector(1000, 0)));
   }
   void teleportTo(Point gridP) {
     Tile tile = level.getTile(gridP);

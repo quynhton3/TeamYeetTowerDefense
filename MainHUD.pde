@@ -33,7 +33,7 @@ class MainHUD
     //text("S C O R E : " + score, 400, height -40);
     textSize(14);
     text("S C O R E : " + score, 780, coinY +1);
-
+    text(" H E A L T H: " , 770, height - 40);
     textSize(12);
     //fill(255);
     //textAlign(TOP, LEFT);
