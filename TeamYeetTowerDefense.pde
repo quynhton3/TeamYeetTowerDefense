@@ -90,7 +90,7 @@ void setup() {
   // MUSIC ////////////////////////////////////
   minim = new Minim(this); 
   bgMusic = minim.loadFile("bgMusic.mp3");
-  bgMusic.setGain(-15);
+  bgMusic.setGain(-10);
   
   meow = minim.loadFile("meow.mp3");
   meow.setGain(-5);
