@@ -12,13 +12,15 @@ class Enemy extends RadialObject {
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
   boolean isDead = false;
-  int maxhp, hp;
+  int maxhp, hp, imgSize;
 
   Enemy() {
     teleportTo(gridP);
     setTargetPosition(TileHelper.pixelToGrid(new PVector(850,275)));
     maxhp = defaultHP;
     hp = maxhp;
+    img = loadImage("fish.png");
+    imgSize = 30;
   }
   void teleportTo(Point gridP) {
     Tile tile = level.getTile(gridP);
@@ -71,7 +73,8 @@ class Enemy extends RadialObject {
     noStroke();
     float healthColor = 255.0 * ((float)hp / (float)maxhp);
     fill(255,healthColor,healthColor); //Enemy color
-    ellipse(pixlP.x, pixlP.y, 22, 22);
+    //ellipse(pixlP.x, pixlP.y, 22, 22);
+    image(img, pixlP.x-imgSize/2, pixlP.y-imgSize/2, imgSize, imgSize);
     drawPath();
   }
   void drawPath() {
