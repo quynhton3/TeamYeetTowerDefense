@@ -4,8 +4,7 @@ class CatLightning extends Tower {
   int maxTargets = 3;
   
   boolean canAttack = true;
-  int coolDown = 3;
-  int CD = coolDown;
+  float coolDown, CD;
   
   // Arraylist for lighting effect
   ArrayList<PVector> lightningPoints = new ArrayList<PVector>();
@@ -15,15 +14,22 @@ class CatLightning extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 70;
-    atkSpeed = 10.0;
-    maxRange = 200;
+    atkDamage = 40;
+    atkSpeed = 20.0;
+    coolDown = atkSpeed * 0.5;
+    CD = coolDown;
+    maxRange = 170;
     
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value
   }
 
   void update() {
     super.update();
+    CD--;
+    if (CD <= 0) {
+      CD = coolDown;
+      lightningPoints.clear();
+    }
   }
 
   void draw() {
@@ -47,51 +53,45 @@ class CatLightning extends Tower {
     stroke(255);
     strokeWeight(1);
     ellipse(x,y,maxRange * 2,maxRange * 2);
+    noStroke();
   }
 
   //Unique cat code goes here
   void attack() {
-    if (canAttack) {
-      //println("Attack!");
-      canAttack = false;
-      
-      // Create an array for all enemies to attack
-      ArrayList<Enemy> targetEnemies = new ArrayList<Enemy>();
-      // Start with the closest enemy
-      Enemy firstEnemy = super.getNearestEnemy();
-      targetEnemies.add(firstEnemy);
-      
-      // If the closest enemy isn't in range, don't attack
-      PVector ePos = firstEnemy.position;
-      if (dist(x,y,ePos.x,ePos.y) > maxRange) return;
-      
-      // Find more targets
-      for (int i = 0; i < maxTargets - 1; i++) {
-        Enemy nextEnemy = getNextTarget(targetEnemies, targetEnemies.get(i));
-        if (nextEnemy != null) {
-          targetEnemies.add(nextEnemy);
-        }
-        else {
-          // No enemies left to potentially target
-          break;
-        }
+    //println("Attack!");
+    canAttack = false;
+    
+    // Create an array for all enemies to attack
+    ArrayList<Enemy> targetEnemies = new ArrayList<Enemy>();
+    // Start with the closest enemy
+    Enemy firstEnemy = super.getNearestEnemy();
+    targetEnemies.add(firstEnemy);
+    
+    // If the closest enemy isn't in range, don't attack
+    PVector ePos = firstEnemy.position;
+    float eDist = dist(x,y,ePos.x,ePos.y);
+    if (eDist > maxRange) return;
+    
+    // Find more targets
+    for (int i = 0; i < maxTargets - 1; i++) {
+      Enemy nextEnemy = getNextTarget(targetEnemies, targetEnemies.get(i));
+      if (nextEnemy != null) {
+        targetEnemies.add(nextEnemy);
       }
-      
-      // Damage targeted enemies and draw lighting effect between them
-      for (int i = 1; i < targetEnemies.size(); i++) {
-        targetEnemies.get(i).hp -= atkDamage;
-        PVector lPos = targetEnemies.get(i).position;
-        lightningPoints.add(new PVector(lPos.x, lPos.y));
+      else {
+        // No enemies left to potentially target
+        break;
       }
     }
-    else {
-      CD--;
-      if (CD <= 0) {
-        canAttack = true;
-        CD = coolDown;
-        lightningPoints.clear();
-      }
+    
+    // Damage targeted enemies and draw lighting effect between them
+    for (int i = 0; i < targetEnemies.size(); i++) {
+      targetEnemies.get(i).hp -= atkDamage;
+      PVector lPos = targetEnemies.get(i).position;
+      lightningPoints.add(new PVector(lPos.x, lPos.y));
     }
+    
+    println(targetEnemies.size());
   }
   
   // Find nearest enemy not including that enemy

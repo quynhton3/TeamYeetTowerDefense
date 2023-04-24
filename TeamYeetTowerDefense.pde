@@ -83,12 +83,17 @@ void setup() {
   // MUSIC ////////////////////////////////////
   minim = new Minim(this); 
   bgMusic = minim.loadFile("bgMusic.mp3");
+  bgMusic.setGain(-10);
   bgMusic.loop();
   meow = minim.loadFile("meow.mp3");
   camera = minim.loadFile("camera.wav");
+  camera.setGain(-10);
   mouseClick = minim.loadFile("mouseClick.mp3");
+  mouseClick.setGain(-5);
   mouseClickDeep = minim.loadFile("mouseClickDeep.wav");
+  mouseClickDeep.setGain(-10);
   coinSFX = minim.loadFile("coinSFX.wav");
+  coinSFX.setGain(-10);
 }
 void draw() {
   // UPDATE:
