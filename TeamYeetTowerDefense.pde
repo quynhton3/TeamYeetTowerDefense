@@ -43,7 +43,8 @@ int cat1X = 225, cat1Y = 225, cat2X = 525, cat2Y = 225, cat3X = 625, cat3Y = 225
 int VFXTimer; 
 
 //Shop Variables/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int coins = 500; //Q 21 
+int defaultCoins = 500;
+int coins = defaultCoins; //Q 21 
 boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
@@ -136,7 +137,6 @@ void draw() {
   //coins ++; //Q 21
   score ++; //Q 22
 
-
   enemySpawnCD--;
   /////////////////////////////Enemies spawner
   if (enemySpawnCD<=0) {
@@ -154,7 +154,9 @@ void draw() {
   for (int i = 0; i <enemies.size(); i++) {
     Enemy e = enemies.get(i);
     e.update();
-    if (e.checkCollision(base)) {
+    PVector ePos = e.position;
+    float eDist = dist(ePos.x,ePos.y,base.position.x,base.position.y);
+    if (e.checkCollision(base) || eDist < 60) {
       base.hp--;
       //println(base.hp);
       e.isDead = true;
@@ -264,6 +266,20 @@ void draw() {
       curIcon.update();
       curIcon.draw();
     }
+  }
+  
+  if (base.hp <= 0) {
+    fill(255,0,0,100);
+    rectMode(CORNER);
+    rect(0,0,width,height);
+    textAlign(CENTER,CENTER);
+    fill(255);
+    textSize(30);
+    text("Oh nyos, base is die ;w;", width / 2, height / 2);
+    fill(220);
+    textSize(15);
+    text("Press Enter to start a new game", width / 2, height / 2 + 40);
+    textAlign(LEFT,TOP);
   }
 } //END OF DRAW///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -425,4 +441,16 @@ void keyPressed() {
   }
   if (keyCode == 72) pathfinder.toggleHeuristic();
   if (keyCode == 222) debug = !debug;
+  
+  if (base.hp < 1 && keyCode == 10) startNewGame();
+}
+
+void startNewGame() {
+  towers.clear();
+  enemies.clear();
+  score = 0;
+  coins = defaultCoins;
+  base.hp = base.maxhp;
+  defaultHP = 150;
+  enemyMaxCD = 100;
 }

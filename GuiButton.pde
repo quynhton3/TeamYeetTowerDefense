@@ -172,7 +172,7 @@ class TowerIcon extends GuiButton {
 void mouseDragged() {
   dragging = true;
   // If nothing is being held and player is hovering over a tower, grab it
-  if (heldIcon == null && hoveringButton == hoveringTower && canBuy(hoveringTower.towerType)) {
+  if (heldIcon == null && hoveringButton == hoveringTower && canBuy(hoveringTower.towerType) && base.hp > 0) {
     heldIcon = hoveringTower;
   }
 }
