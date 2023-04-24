@@ -16,7 +16,7 @@ class Enemy extends RadialObject {
 
   Enemy() {
     teleportTo(gridP);
-    setTargetPosition(TileHelper.pixelToGrid(new PVector(850,275)));
+    setTargetPosition(TileHelper.pixelToGrid(new PVector(890, 105)));
     maxhp = defaultHP;
     hp = maxhp;
     img = loadImage("fish.png");
@@ -77,7 +77,7 @@ class Enemy extends RadialObject {
     //ellipse(pixlP.x, pixlP.y, 22, 22);
     image(img, pixlP.x-imgSize/2, pixlP.y-imgSize/2, imgSize, imgSize);
     noTint();
-    drawPath();
+    drawPath(); 
   }
   void drawPath() {
     if (path != null && path.size() > 1) {

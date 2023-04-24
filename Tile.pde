@@ -48,7 +48,7 @@ class Tile {
       } else return; // don't draw empty tiles
     }
     if (TERRAIN == 1) fill(230); //path
-    if (TERRAIN == 2) fill(10); //Walls
+    if (TERRAIN == 2) fill(40,140); //Walls
     if (hover) fill(255, 255, 0);
 
     if (TileHelper.isHex ) {
