@@ -14,9 +14,9 @@ class CatLightning extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 40;
-    atkSpeed = 20.0;
-    coolDown = atkSpeed * 0.5;
+    atkDamage = 20;
+    atkSpeed = 25.0;
+    coolDown = 15;
     CD = coolDown;
     maxRange = 170;
     
@@ -33,8 +33,6 @@ class CatLightning extends Tower {
   }
 
   void draw() {
-    super.draw();
-    
     if (!lightningPoints.isEmpty()) {
       // Draw lightning
       stroke(255,255,0);
@@ -50,10 +48,12 @@ class CatLightning extends Tower {
     }
     
     noFill();
-    stroke(255);
+    stroke(255,255,255,50);
     strokeWeight(1);
     ellipse(x,y,maxRange * 2,maxRange * 2);
     noStroke();
+    
+    super.draw();
   }
 
   //Unique cat code goes here
@@ -90,8 +90,6 @@ class CatLightning extends Tower {
       PVector lPos = targetEnemies.get(i).position;
       lightningPoints.add(new PVector(lPos.x, lPos.y));
     }
-    
-    println(targetEnemies.size());
   }
   
   // Find nearest enemy not including that enemy

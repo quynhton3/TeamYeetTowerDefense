@@ -1,5 +1,15 @@
 // This tab has most of the code for gui classes and tower dragging
 
+// Number values for each tower type
+int FIRE_CAT = 1;
+int LIGHTNING_CAT = 2;
+int ICE_CAT = 3;
+int ENTROPY_CAT = 4;
+
+PImage icon1, icon2, icon3, icon4;
+
+ArrayList<String> towerDesc = new ArrayList<String>();
+
 // Button that's currently being hovered over
 GuiButton hoveringButton;
 
@@ -36,6 +46,7 @@ class GuiButton {
     // Draw a simple box that turns grey when hovered over
     fill(hovering ? 180 : 255);
     rect(x,y,xSize,ySize);
+    rectMode(CORNER);
   }
   
   // Check if the player is hovering over this button
@@ -93,21 +104,62 @@ class TowerIcon extends GuiButton {
           }
         }
         
-        x = newXPos;
-        y = newYPos;
+        //x = newXPos;
+        //y = newYPos;
         
-        // Code to make a new tower goes here!
-        towers.add(new Tower(x, y, towerType));
+        // Place new tower
+        if (towerType == 1) {
+          towers.add(new CatFire(newXPos, newYPos));
+          coins -= fireCost;
+        }
+        else if (towerType == 2) {
+          towers.add(new CatLightning(newXPos, newYPos));
+          coins -= lightningCost;
+        }
+        else if (towerType == 3) {
+          towers.add(new CatIce(newXPos, newYPos));
+          coins -= iceCost;
+        }
+        else if (towerType == 4) {
+          towers.add(new CatEntropy(newXPos, newYPos));
+          coins -= entropyCost;
+        }
+        meow.rewind();
+        meow.play();
+        camera.rewind();
+        camera.play();
+        coinSFX.rewind();
+        coinSFX.play();
       }
     }
   }
   
   // This method will draw a copy of the tower's sprite while you're moving it
   void drawFakeTower() {
-    rectMode(CENTER);
-    noStroke();
-    fill(255);
-    rect(mouseX,mouseY,xSize,ySize);
+    //rectMode(CENTER);
+    //noStroke();
+    //fill(255);
+    //rect(mouseX,mouseY,xSize,ySize);
+    //rectMode(CORNER);
+    imageMode(CENTER);
+    tint(255,255,255,100);
+    image(towerIconSprites.get(towerType - 1), mouseX, mouseY);
+    noTint();
+    imageMode(CORNER);
+  }
+  
+  void draw() {
+    //super.draw();
+    imageMode(CENTER);
+    image(towerIconSprites.get(towerType - 1), x, y);
+    imageMode(CORNER);
+    
+    // Show tower description
+    if (hovering && hoveringTower == this) {
+      fill(255);
+      textAlign(LEFT,TOP);
+      text(towerDesc.get(towerType - 1), 235, 370);
+    }
   }
 }
 

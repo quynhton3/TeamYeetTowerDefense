@@ -48,7 +48,7 @@ boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
-int fireCost = 900, iceCost = 600, lightningCost = 200, entrophyCost = 400, rockCost = 150, logCost = 200; //Q 21
+int fireCost = 900, iceCost = 600, lightningCost = 200, entropyCost = 400, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
 boolean isCircleMode;
 
@@ -61,6 +61,10 @@ int playX = 720, playY = 380, playW = 150, playH = 30;
 
 
 boolean mouseClicked; //Q 21
+
+ArrayList<TowerIcon> towerIcons = new ArrayList<TowerIcon>();
+ArrayList<PImage> towerIconSprites = new ArrayList<PImage>();
+
 void setup() {
   background(5);
   size(926, 428);
@@ -96,6 +100,32 @@ void setup() {
   mouseClickDeep.setGain(-20);
   coinSFX = minim.loadFile("coinSFX.wav");
   coinSFX.setGain(-10);
+  
+  towerIcons.add(new TowerIcon(50,395,40,40,FIRE_CAT));
+  towerIcons.add(new TowerIcon(100,395,40,40,LIGHTNING_CAT));
+  towerIcons.add(new TowerIcon(150,395,40,40,ICE_CAT));
+  towerIcons.add(new TowerIcon(200,395,40,40,ENTROPY_CAT));
+  
+  // Fire cat description
+  towerDesc.add("Does like 10 damage per shot. Likes hanging with Brandon in\nIRC 104. Appreciates Brandon's work and looks up to\nhis soundboard. Big fan of Mike.");
+  
+  // Lightning cat description
+  towerDesc.add("Lightning attacks bounce between enemies! Favorite person\nis CodeGods Jennyboo and Jay <344. Thinks James is funny.");
+  
+  // Ice cat description
+  towerDesc.add("Able to do up to 30 damage to an enemy!! Enjoys the Khelben.\nThinks Khelben has a big head. Is v fond of Mr.Ty & amused by\nhis comments.");
+  
+  // Entropy cat description
+  towerDesc.add("A strong boi, ez 1 taps!!!! Works out and likes long walks on\nthe beach. Works out with Fill, the Vaarun, and Seabasses!");
+  
+  towerIconSprites.add(loadImage("tower1.png"));
+  towerIconSprites.add(loadImage("tower2.png"));
+  towerIconSprites.add(loadImage("tower3.png"));
+  towerIconSprites.add(loadImage("tower4.png"));
+  
+  for (int i = 0; i < towerIconSprites.size(); i++) {
+    towerIconSprites.get(i).resize(40,40);
+  }
 }
 void draw() {
   // UPDATE:
@@ -112,7 +142,7 @@ void draw() {
   if (enemySpawnCD<=0) {
     enemyMaxCD *= 0.99;
     if (enemyMaxCD <= 20) {
-      enemyMaxCD = 20;
+      enemyMaxCD = 10;
     }
     Enemy e = new Enemy();
     enemies.add(e);
@@ -165,7 +195,7 @@ void draw() {
   rect(0, height - 70, width, 500);
 
   //print(VFXTimer);
-  mainHUD.draw(); //Q 21
+  //mainHUD.draw(); //Q 21
 
   //DRAWS TITLE SCREEN ////////////////////////////////////////////////////////
   titleTimer --;
@@ -218,6 +248,14 @@ void draw() {
     shop.draw(); //Q 21
     mouseClick.play();
   }
+  
+  if (titleTimer <= 0) {
+    for (int i = 0; i < towerIcons.size(); i++) {
+      TowerIcon curIcon = towerIcons.get(i);
+      curIcon.update();
+      curIcon.draw();
+    }
+  }
 } //END OF DRAW///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 boolean MouseInTiles() {
@@ -253,110 +291,110 @@ void mousePressed() {
   //player.setTargetPosition(TileHelper.pixelToGrid(new PVector(mouseX, mouseY))); //works only
 
   // BUTTONNNNNNNNNNNNNNNNNNN //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (mouseButton == LEFT) { //Q 21
-    mouseClicked = true;
-    mouseClicked = false;
-    //Main HUD /////////////////////////////////////////////////////////////////////////////
-    if (isMouseOver(shopX, shopY, shopW, shopH, 255)) { //Shop Button
-      shopOpen =true;
-      mouseClickDeep.rewind();
-      mouseClickDeep.play();
-    }
+  //if (mouseButton == LEFT) { //Q 21
+  //  mouseClicked = true;
+  //  mouseClicked = false;
+  //  //Main HUD /////////////////////////////////////////////////////////////////////////////
+  //  if (isMouseOver(shopX, shopY, shopW, shopH, 255)) { //Shop Button
+  //    shopOpen =true;
+  //    mouseClickDeep.rewind();
+  //    mouseClickDeep.play();
+  //  }
 
-    //Selected Item/////////////////////////////////////////////////////////////////////////
-    if (isMouseOver(175, 125, 75, 75, 255) && coins >= fireCost) { //Fire 
-      hasFire = true;
-      mouseClickDeep.rewind();
-      mouseClickDeep.play();
-    }
-    if (isMouseOver(275, 125, 75, 75, 255) && coins >= lightningCost) { //Lightning
-      hasLightning = true;
-      mouseClick.rewind();
-      mouseClick.play();
-    }
-    if (isMouseOver(375, 125, 75, 75, 255) && coins >= iceCost) { //Ice
-      hasIce = true;
-      mouseClick.rewind();
-      mouseClick.play();
-    }
-    if (isMouseOver(475, 125, 75, 75, 255) && coins >= entrophyCost) { //Entrophy
-      hasEntrophy = true;
-      mouseClick.rewind();
-      mouseClick.play();
-    }
-    if (isMouseOver(575, 125, 75, 75, 255) && coins >= rockCost) { //Rock
-      //  hasRock = true;
-      isCircleMode = true;
-    }
-    //if (isMouseOver(675, 125, 75, 75, 255)) { //Log
-    //  hasLog = true;
-    //}
+  //  //Selected Item/////////////////////////////////////////////////////////////////////////
+  //  if (isMouseOver(175, 125, 75, 75, 255) && coins >= fireCost) { //Fire 
+  //    hasFire = true;
+  //    mouseClickDeep.rewind();
+  //    mouseClickDeep.play();
+  //  }
+  //  if (isMouseOver(275, 125, 75, 75, 255) && coins >= lightningCost) { //Lightning
+  //    hasLightning = true;
+  //    mouseClick.rewind();
+  //    mouseClick.play();
+  //  }
+  //  if (isMouseOver(375, 125, 75, 75, 255) && coins >= iceCost) { //Ice
+  //    hasIce = true;
+  //    mouseClick.rewind();
+  //    mouseClick.play();
+  //  }
+  //  if (isMouseOver(475, 125, 75, 75, 255) && coins >= entrophyCost) { //Entrophy
+  //    hasEntrophy = true;
+  //    mouseClick.rewind();
+  //    mouseClick.play();
+  //  }
+  //  if (isMouseOver(575, 125, 75, 75, 255) && coins >= rockCost) { //Rock
+  //    //  hasRock = true;
+  //    isCircleMode = true;
+  //  }
+  //  //if (isMouseOver(675, 125, 75, 75, 255)) { //Log
+  //  //  hasLog = true;
+  //  //}
 
-    if (isMouseOver(675, 25, 100, 50, 200)) { //Exit button
-      mouseClick.rewind();
-      mouseClick.play();
+  //  if (isMouseOver(675, 25, 100, 50, 200)) { //Exit button
+  //    mouseClick.rewind();
+  //    mouseClick.play();
 
-      shopOpen = false;
-    }
+  //    shopOpen = false;
+  //  }
 
 
-    //Brought///////////////////////////////////////////////////////////////////////////////
-    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
-      //Drag log code here: @James
-      coins -= fireCost;
-      towers.add(new CatFire(cat1X, cat1Y));
-      hasFire = false;
-      VFXTimer = 20;
-      meow.rewind();
-      meow.play();
-      camera.rewind();
-      camera.play();
-      coinSFX.rewind();
-      coinSFX.play();
+  //  //Brought///////////////////////////////////////////////////////////////////////////////
+  //  if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasFire) { //Buy Button
+  //    //Drag log code here: @James
+  //    coins -= fireCost;
+  //    towers.add(new CatFire(cat1X, cat1Y));
+  //    hasFire = false;
+  //    VFXTimer = 20;
+  //    meow.rewind();
+  //    meow.play();
+  //    camera.rewind();
+  //    camera.play();
+  //    coinSFX.rewind();
+  //    coinSFX.play();
 
-      shopOpen = false;
-    }
-    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
-      //Drag log code here: @James
-      coins -= lightningCost;
-      towers.add(new CatLightning(cat2X, cat2Y));
-      hasLightning = false;
-      meow.rewind();
-      meow.play();
-      camera.rewind();
-      camera.play();
-      coinSFX.play();
+  //    shopOpen = false;
+  //  }
+  //  if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasLightning) { //Buy Button
+  //    //Drag log code here: @James
+  //    coins -= lightningCost;
+  //    towers.add(new CatLightning(cat2X, cat2Y));
+  //    hasLightning = false;
+  //    meow.rewind();
+  //    meow.play();
+  //    camera.rewind();
+  //    camera.play();
+  //    coinSFX.play();
 
-      shopOpen = false;
-    }
-    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
-      //Drag log code here: @James
-      coins -= iceCost;
-      towers.add(new CatIce(cat3X, cat3Y));
-      hasIce = false;
-      meow.rewind();
-      meow.play();
-      camera.rewind();
-      camera.play();
-      coinSFX.rewind();
-      coinSFX.play();
+  //    shopOpen = false;
+  //  }
+  //  if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasIce) { //Buy Button
+  //    //Drag log code here: @James
+  //    coins -= iceCost;
+  //    towers.add(new CatIce(cat3X, cat3Y));
+  //    hasIce = false;
+  //    meow.rewind();
+  //    meow.play();
+  //    camera.rewind();
+  //    camera.play();
+  //    coinSFX.rewind();
+  //    coinSFX.play();
 
-      shopOpen = false;
-    }
-    if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
-      //Drag log code here: @James
-      towers.add(new CatEntropy(cat4X, cat4Y));
-      coins -= entrophyCost;
-      hasEntrophy = false;
-      meow.rewind();
-      meow.play();
-      camera.rewind();
-      camera.play();
-      coinSFX.rewind();
-      coinSFX.play();
-      shopOpen = false;
-    }
-  }
+  //    shopOpen = false;
+  //  }
+  //  if (isMouseOver(buyX, buyY, buyW, buyH, 200) && hasEntrophy) { //Buy Button
+  //    //Drag log code here: @James
+  //    towers.add(new CatEntropy(cat4X, cat4Y));
+  //    coins -= entrophyCost;
+  //    hasEntrophy = false;
+  //    meow.rewind();
+  //    meow.play();
+  //    camera.rewind();
+  //    camera.play();
+  //    coinSFX.rewind();
+  //    coinSFX.play();
+  //    shopOpen = false;
+  //  }
+  //}
   //}//End mousePressed
 } // end of MousePressed
 void keyPressed() {

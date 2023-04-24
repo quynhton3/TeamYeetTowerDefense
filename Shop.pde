@@ -116,7 +116,7 @@ class Shop
       rect(375, 125, 75, 75, 2);
     } 
 
-    if (coins < entrophyCost) {
+    if (coins < entropyCost) {
       fill( 255, 0, 0, 15);
       rect(475, 125, 75, 75, 2);
     } 

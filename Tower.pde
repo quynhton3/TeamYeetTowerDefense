@@ -1,10 +1,3 @@
-// Number values for each tower type
-// These are instantiated by the children
-int ICE_CAT = 3;
-int FIRE_CAT = 1;
-int LIGHTING_CAT = 2;
-int ENTROPY_CAT = 4;
-
 // This class creates a tower
 class Tower extends RadialObject {
   //Visual Properties
