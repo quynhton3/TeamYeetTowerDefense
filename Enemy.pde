@@ -1,3 +1,5 @@
+int defaultHP = 150;
+
 class Enemy extends RadialObject {
 
   // GRID-SPACE COORDINATES:
@@ -10,11 +12,13 @@ class Enemy extends RadialObject {
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
   boolean isDead = false;
-  int hp = 150;
+  int maxhp, hp;
 
   Enemy() {
     teleportTo(gridP);
-    setTargetPosition(TileHelper.pixelToGrid(new PVector(1000, 0)));
+    setTargetPosition(TileHelper.pixelToGrid(new PVector(850,275)));
+    maxhp = defaultHP;
+    hp = maxhp;
   }
   void teleportTo(Point gridP) {
     Tile tile = level.getTile(gridP);
@@ -65,7 +69,8 @@ class Enemy extends RadialObject {
   }
   void draw() {
     noStroke();
-    fill(255,200); //Enemy color
+    float healthColor = 255.0 * ((float)hp / (float)maxhp);
+    fill(255,healthColor,healthColor); //Enemy color
     ellipse(pixlP.x, pixlP.y, 22, 22);
     drawPath();
   }

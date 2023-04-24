@@ -13,7 +13,7 @@ class CatLightning extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 20;
+    atkDamage = 10;
     atkSpeed = 25.0;
     maxRange = 170;
     
@@ -44,11 +44,12 @@ class CatLightning extends Tower {
       strokeWeight(0);
     }
     
-    noFill();
-    stroke(255,255,255,50);
-    strokeWeight(1);
-    ellipse(x,y,maxRange * 2,maxRange * 2);
-    noStroke();
+    // Draw range
+    //noFill();
+    //stroke(255,255,255,50);
+    //strokeWeight(1);
+    //ellipse(x,y,maxRange * 2,maxRange * 2);
+    //noStroke();
     
     super.draw();
   }
