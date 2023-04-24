@@ -7,7 +7,7 @@ class CatFire extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 10;
+    atkDamage = 40;
     atkSpeed = 15.0;
 
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value

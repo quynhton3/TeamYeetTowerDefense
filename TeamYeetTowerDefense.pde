@@ -1,6 +1,7 @@
 boolean debug = false;
 Level level;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+ArrayList<Icicle> icicles = new ArrayList<Icicle>();
 int enemyMaxCD = 100;
 int enemySpawnCD = enemyMaxCD;
 Pathfinder pathfinder;
@@ -49,7 +50,7 @@ boolean shopOpen; //Q 21
 
 int shopBGX = 150, shopBGY = 25, shopBGX2 = 775, shopBGY2 = 400; //Q 21
 boolean hasFire, hasIce, hasLightning, hasEntrophy, hasRock, hasLog; //Q 21
-int fireCost = 200, iceCost = 400, lightningCost = 500, entropyCost = 300, rockCost = 150, logCost = 200; //Q 21
+int fireCost = 200, iceCost = 400, lightningCost = 500, entropyCost = 600, rockCost = 150, logCost = 200; //Q 21
 int descriptionX = 170, descriptionY = 300;
 boolean isCircleMode;
 
@@ -144,7 +145,7 @@ void draw() {
     if (enemyMaxCD <= 20) {
       enemyMaxCD = 20;
     }
-    defaultHP *= 1.02;
+    defaultHP *= 1.05;
     Enemy e = new Enemy();
     enemies.add(e);
     enemySpawnCD= enemyMaxCD;
@@ -175,9 +176,16 @@ void draw() {
     for (int j = 0; j <enemies.size(); j++) {
       Enemy e = enemies.get(j);
       if (e.checkCollision(t)) {
-        e.hp--;
+        //e.hp--;
       }
       ;
+    }
+  }
+  
+  for (int i = 0; i < icicles.size(); i++) {
+    icicles.get(i).update();
+    if (icicles.get(i).isDead) {
+      icicles.remove(i);
     }
   }
 
@@ -195,6 +203,10 @@ void draw() {
   }
   for (Tower t : towers) {
     t.draw();
+  }
+  
+  for (int i = 0; i < icicles.size(); i++) {
+    icicles.get(i).draw();
   }
 
 
@@ -291,10 +303,10 @@ void draw() {
     textAlign(CENTER,CENTER);
     fill(255);
     textSize(30);
-    text("Oh nyos, base is die ;w;", width / 2, height / 2);
+    text("Oh nyos, the base is die ;w;", width / 2, height / 2);
     fill(220);
     textSize(15);
-    text("Press Enter to start a new game", width / 2, height / 2 + 40);
+    text("Pwess Enter to pway again :3", width / 2, height / 2 + 40);
     textAlign(LEFT,TOP);
   }
 } //END OF DRAW///////////////////////////////////////////////////////////////////////////////////////////////////////

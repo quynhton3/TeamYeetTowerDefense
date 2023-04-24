@@ -11,7 +11,7 @@ class CatEntropy extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 20;
+    atkDamage = defaultHP + 1;
     atkSpeed = 40.0;
     
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value

@@ -13,7 +13,7 @@ class CatLightning extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 10;
+    atkDamage = 30;
     atkSpeed = 25.0;
     maxRange = 170;
     
