@@ -11,6 +11,7 @@ class CatIce extends Tower {
     atkSpeed = 20.0;
     
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value
+    
   }
 
   void update() {
@@ -30,6 +31,10 @@ class CatIce extends Tower {
     icicles.add(new Icicle(x,y,angleToTarget,atkDamage));
     icicles.add(new Icicle(x,y,angleToTarget + radians(spread),atkDamage));
     icicles.add(new Icicle(x,y,angleToTarget - radians(spread),atkDamage));
+    if (upgradeLevel >= 2) {
+      icicles.add(new Icicle(x,y,angleToTarget + radians(spread * 2),atkDamage));
+      icicles.add(new Icicle(x,y,angleToTarget - radians(spread * 2),atkDamage));
+    }
   }
 }
 
