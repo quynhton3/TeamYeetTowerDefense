@@ -4,6 +4,10 @@ class CatLightning extends Tower {
   int maxTargets = 3;
   
   float coolDown = 15, CD = coolDown;
+  float stormCoolDown = 30, stormCD = stormCoolDown;
+  
+  boolean stormCloud = true;
+  float stormCloudRotate = 0;
   
   // Arraylist for lighting effect
   ArrayList<PVector> lightningPoints = new ArrayList<PVector>();
@@ -13,13 +17,13 @@ class CatLightning extends Tower {
 
     //Set Unit Properties
     cost = 1;
-    atkDamage = 30;
+    atkDamage = 45;
     atkSpeed = 25.0;
     maxRange = 170;
     
     atkTimer = atkSpeed; //Timer counts down, Speed is a constant value
   }
-
+  
   void update() {
     super.update();
     CD--;
@@ -27,9 +31,37 @@ class CatLightning extends Tower {
       CD = coolDown;
       lightningPoints.clear();
     }
+    if (stormCloud) {
+      stormCD--;
+      if (stormCD <= 0) {
+        stormCD = stormCoolDown;
+        for (int i = 0; i < enemies.size(); i++) {
+          Enemy e = enemies.get(i);
+          PVector ePos = e.position;
+          if (dist(ePos.x,ePos.y,x,y) <= 70) {
+            e.hp -= atkDamage;
+          }
+        }
+      }
+    }
   }
 
   void draw() {
+    
+    if (stormCloud) {
+      stormCloudRotate += 0.04;
+      
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x,y);
+      rotate(stormCloudRotate);
+      tint(50,200);
+      image(cloud,0,0);
+      noTint();
+      imageMode(CORNER);
+      popMatrix();
+    }
+    
     if (!lightningPoints.isEmpty()) {
       // Draw lightning
       stroke(255,255,0);
@@ -52,6 +84,15 @@ class CatLightning extends Tower {
     //noStroke();
     
     super.draw();
+  }
+  
+  void upgrade() {
+    maxTargets++;
+    atkDamage += 7;
+    super.upgrade();
+    if (upgradeLevel >= 3) {
+      stormCloud = true;
+    }
   }
 
   //Unique cat code goes here

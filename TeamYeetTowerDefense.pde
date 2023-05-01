@@ -27,7 +27,7 @@ PImage titleScreen;
 PImage gameOverScreen;
 int titleTimer = 100;
 
-
+PImage cloud;
 
 
 boolean isExisting;
@@ -81,7 +81,8 @@ void setup() {
   tileSize = TileHelper.W/2;
   time = (float)millis()/1000.0;
 
-
+  cloud = loadImage("cloud.png");
+  cloud.resize(150,150);
 
 
   // PICS //////////////////////////////////////
@@ -115,7 +116,7 @@ void setup() {
   towerDesc.add("Lightning attacks bounce between enemies! Favorite person\nis CodeGods Jennyboo and Jay <344. Thinks James is funny.");
   
   // Ice cat description
-  towerDesc.add("Able to do up to 30 damage to an enemy!! Enjoys the Khelben.\nThinks Khelben has a big head. Is v fond of Mr.Ty & amused by\nhis comments.");
+  towerDesc.add("Throws out icicles!! Enjoys the Khelben.\nThinks Khelben has a big head. Is v fond of Mr.Ty & amused by\nhis comments.");
   
   // Entropy cat description
   towerDesc.add("Attacks random enemies! Works out and likes long walks on\nthe beach. Works out with Fill, the Vaarun, and Seabasses!");
@@ -145,7 +146,7 @@ void draw() {
     if (enemyMaxCD <= 20) {
       enemyMaxCD = 20;
     }
-    defaultHP *= 1.05;
+    defaultHP *= 1.02;
     Enemy e = new Enemy();
     enemies.add(e);
     enemySpawnCD= enemyMaxCD;

@@ -60,4 +60,9 @@ class Tower extends RadialObject {
 
   void attack() {
   } //To be polymorphed
+  
+  // Upgrade tower level
+  void upgrade() {
+    upgradeLevel++;
+  }
 }
