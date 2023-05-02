@@ -1,6 +1,7 @@
 class CatIce extends Tower {
 
   float spread = 15;
+  boolean canFreeze = false;
   
   CatIce(float x, float y) {
     super(x, y, 3);
@@ -28,13 +29,20 @@ class CatIce extends Tower {
     
     Enemy e = getNearestEnemy();
     float angleToTarget = calcAngleToTarget(new PVector(x,y), e.position) - radians(90);
-    icicles.add(new Icicle(x,y,angleToTarget,atkDamage));
-    icicles.add(new Icicle(x,y,angleToTarget + radians(spread),atkDamage));
-    icicles.add(new Icicle(x,y,angleToTarget - radians(spread),atkDamage));
+    icicles.add(new Icicle(x,y,angleToTarget,atkDamage,this));
+    icicles.add(new Icicle(x,y,angleToTarget + radians(spread),atkDamage,this));
+    icicles.add(new Icicle(x,y,angleToTarget - radians(spread),atkDamage,this));
     if (upgradeLevel >= 2) {
-      icicles.add(new Icicle(x,y,angleToTarget + radians(spread * 2),atkDamage));
-      icicles.add(new Icicle(x,y,angleToTarget - radians(spread * 2),atkDamage));
+      icicles.add(new Icicle(x,y,angleToTarget + radians(spread * 2),atkDamage,this));
+      icicles.add(new Icicle(x,y,angleToTarget - radians(spread * 2),atkDamage,this));
     }
+  }
+  
+  void upgrade() {
+    if (upgradeLevel >= 3) {
+      canFreeze = true;
+    }
+    super.upgrade();
   }
 }
 
@@ -49,12 +57,14 @@ class Icicle {
   float size = 10;
   float damage = 17;
   float atkDamage;
+  CatIce tower;
   
-  Icicle(float xPos, float yPos, float newAngle, float atkDamage) {
+  Icicle(float xPos, float yPos, float newAngle, float atkDamage, CatIce tower) {
     pos.x = xPos;
     pos.y = yPos;
     angle = newAngle + radians(90);
     this.atkDamage = atkDamage;
+    this.tower = tower;
   }
   
   void update() {
@@ -67,6 +77,10 @@ class Icicle {
       if (dist(ePos.x,ePos.y,pos.x,pos.y) < size * 1.5) {
         isDead = true;
         e.hp -= atkDamage;
+        if (tower.canFreeze) {
+          e.isFrozen = true;
+          e.frozenTime = frozenMaxTime;
+        }
       }
     }
   }

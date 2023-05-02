@@ -1,4 +1,5 @@
 int defaultHP = 150;
+int frozenMaxTime = 40;
 
 class Enemy extends RadialObject {
 
@@ -12,7 +13,9 @@ class Enemy extends RadialObject {
   ArrayList<Tile> path;    // the path to follow to get to the target position
   boolean findPath = false;
   boolean isDead = false;
+  boolean isFrozen = false;
   int maxhp, hp, imgSize;
+  int frozenTime = frozenMaxTime;
 
   Enemy() {
     teleportTo(gridP);
@@ -56,18 +59,26 @@ class Enemy extends RadialObject {
     }
   }
   void updateMove() {
-    
-    float snapThreshold = 1;
-    PVector pixlT = level.getTileCenterAt(gridP);
-    PVector diff = PVector.sub(pixlT, pixlP);
-    
-    pixlP.x += diff.x * .2;
-    pixlP.y += diff.y * .2;
-    
-    if (abs(diff.x) < snapThreshold) pixlP.x = pixlT.x;
-    if (abs(diff.y) < snapThreshold) pixlP.y = pixlT.y;
-
-    if (pixlT.x == pixlP.x && pixlT.y == pixlP.y) findPath = true;
+    if (!isFrozen) {
+      float snapThreshold = 1;
+      PVector pixlT = level.getTileCenterAt(gridP);
+      PVector diff = PVector.sub(pixlT, pixlP);
+      
+      pixlP.x += diff.x * .2;
+      pixlP.y += diff.y * .2;
+      
+      if (abs(diff.x) < snapThreshold) pixlP.x = pixlT.x;
+      if (abs(diff.y) < snapThreshold) pixlP.y = pixlT.y;
+  
+      if (pixlT.x == pixlP.x && pixlT.y == pixlP.y) findPath = true;
+    }
+    else {
+      frozenTime--;
+      if (frozenTime <= 0) {
+        isFrozen = false;
+        frozenTime = frozenMaxTime;
+      }
+    }
   }
   void draw() {
     noStroke();
