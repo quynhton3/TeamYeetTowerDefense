@@ -27,12 +27,24 @@ class GuiButton {
   
   float x, y, xSize, ySize;
   boolean hovering, snapToGrid = false;
+  String text = "";
+  color color1 = (255), color2 = (180);
   
   GuiButton(float x, float y, float xSize, float ySize) {
     this.x = x;
     this.y = y;
     this.xSize = xSize;
     this.ySize = ySize;
+  }
+  
+  GuiButton(float x, float y, float xSize, float ySize, String text, color color1, color color2) {
+    this.x = x;
+    this.y = y;
+    this.xSize = xSize;
+    this.ySize = ySize;
+    this.text = text;
+    this.color1 = color1;
+    this.color2 = color2;
   }
   
   void update() {
@@ -43,10 +55,15 @@ class GuiButton {
   void draw() {
     rectMode(CENTER);
     noStroke();
-    // Draw a simple box that turns grey when hovered over
-    fill(hovering ? 180 : 255);
+    // Draw a simple box that switches to color2 when hovered over
+    fill(hovering ? color2 : color1);
     rect(x,y,xSize,ySize);
     rectMode(CORNER);
+    fill(255);
+    textSize(15);
+    textAlign(CENTER,CENTER);
+    text(text,x,y);
+    textAlign(LEFT,TOP);
   }
   
   // Check if the player is hovering over this button
@@ -56,7 +73,7 @@ class GuiButton {
       float xHalf = xSize / 2;
       float yHalf = ySize / 2;
       if (mouseX > this.x - xHalf
-        && mouseX < this.x + yHalf
+        && mouseX < this.x + xHalf
         && mouseY > this.y - yHalf
         && mouseY < this.y + yHalf) {
         hoveringButton = this;
@@ -157,6 +174,7 @@ class TowerIcon extends GuiButton {
     imageMode(CORNER);
     textAlign(CENTER,CENTER);
     fill(255);
+    textSize(13);
     text("$" + getCost(towerType), x - 4, y + 30);
     textAlign(LEFT,TOP);
     
@@ -164,7 +182,8 @@ class TowerIcon extends GuiButton {
     if (hovering && hoveringTower == this) {
       fill(255);
       textAlign(LEFT,TOP);
-      text(towerDesc.get(towerType - 1), 435, 370);
+      textSize(10);
+      text(towerDesc.get(towerType - 1), 420, 370);
     }
   }
 }

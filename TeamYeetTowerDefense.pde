@@ -30,6 +30,7 @@ int titleTimer = 100;
 PImage cloud;
 
 Tower hoveringPlacedTower;
+Tower selectedTower;
 
 boolean isExisting;
 int money = 500;
@@ -68,6 +69,8 @@ boolean mouseClicked; //Q 21
 ArrayList<TowerIcon> towerIcons = new ArrayList<TowerIcon>();
 ArrayList<PImage> towerIconSprites = new ArrayList<PImage>();
 
+GuiButton upgradeButton;
+
 void setup() {
   background(5);
   size(926, 428);
@@ -99,7 +102,6 @@ void setup() {
   camera = minim.loadFile("camera.wav");
   camera.setGain(-10);
   mouseClick = minim.loadFile("mouseClick.mp3");
-  mouseClick.setGain(-5);
   mouseClickDeep = minim.loadFile("mouseClickDeep.wav");
   mouseClickDeep.setGain(-20);
   coinSFX = minim.loadFile("coinSFX.wav");
@@ -130,6 +132,8 @@ void setup() {
   for (int i = 0; i < towerIconSprites.size(); i++) {
     towerIconSprites.get(i).resize(40,40);
   }
+  
+  upgradeButton = new GuiButton(width - 80, height - 20, 80,25,"UPGRADE",color(100,155,100),color(70,125,70));
 }
 void draw() {
   // UPDATE:
@@ -202,6 +206,8 @@ void draw() {
       icicles.remove(i);
     }
   }
+  
+  upgradeButton.update();
 
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
@@ -214,7 +220,7 @@ void draw() {
   for (Tower t : towers) {
     t.draw();
   }
-  if (dist < 30) {
+  if (dist < 30 && hoveringPlacedTower != selectedTower) {
     noFill();
     stroke(255,255,255,150);
     strokeWeight(1);
@@ -223,6 +229,13 @@ void draw() {
   }
   else {
     hoveringPlacedTower = null;
+  }
+  if (selectedTower != null) {
+    noFill();
+    stroke(255);
+    strokeWeight(1);
+    ellipse(selectedTower.x,selectedTower.y,60,60);
+    noStroke();
   }
   
   for (int i = 0; i < icicles.size(); i++) {
@@ -247,6 +260,15 @@ void draw() {
 
   //print(VFXTimer);
   mainHUD.draw(); //Q 21
+  
+  if (selectedTower != null) {
+    upgradeButton.draw();
+    textAlign(CENTER,CENTER);
+    int cost = selectedTower.upgradeLevel * 100;
+    fill(coins < cost? 100 : 255);
+    text("Level " + selectedTower.upgradeLevel + 1 + "\n$" + cost,width - 80, height - 60);
+    textAlign(LEFT,TOP);
+  }
 
   //DRAWS TITLE SCREEN ////////////////////////////////////////////////////////
   titleTimer --;
@@ -469,6 +491,11 @@ void mousePressed() {
   //  }
   //}
   //}//End mousePressed
+  if (hoveringPlacedTower != null) {
+    selectedTower = hoveringPlacedTower;
+    mouseClick.rewind();
+    mouseClick.play();
+  }
 } // end of MousePressed
 void keyPressed() {
   //if (debug) println(keyCode);
