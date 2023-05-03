@@ -83,8 +83,13 @@ class Enemy extends RadialObject {
   void draw() {
     noStroke();
     float healthColor = 255.0 * ((float)hp / (float)maxhp);
-    fill(255,healthColor,healthColor); //Enemy color
-    tint(255,healthColor,healthColor);
+    //fill(255,healthColor,healthColor); //Enemy color
+    if (!isFrozen) {
+      tint(255,healthColor,healthColor);
+    }
+    else {
+      tint(100,100,255);
+    }
     //ellipse(pixlP.x, pixlP.y, 22, 22);
     image(img, pixlP.x-imgSize/2, pixlP.y-imgSize/2, imgSize, imgSize);
     noTint();

@@ -6,7 +6,7 @@ class CatLightning extends Tower {
   float coolDown = 15, CD = coolDown;
   float stormCoolDown = 30, stormCD = stormCoolDown;
   
-  boolean stormCloud = true;
+  boolean stormCloud = false;
   float stormCloudRotate = 0;
   
   // Arraylist for lighting effect

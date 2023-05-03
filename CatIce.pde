@@ -1,7 +1,7 @@
 class CatIce extends Tower {
 
   float spread = 15;
-  boolean canFreeze = false;
+  boolean canFreeze = true;
   
   CatIce(float x, float y) {
     super(x, y, 3);
@@ -25,8 +25,6 @@ class CatIce extends Tower {
 
   //Unique cat code goes here
   void attack() {
-    println("ice cat attack!");
-    
     Enemy e = getNearestEnemy();
     float angleToTarget = calcAngleToTarget(new PVector(x,y), e.position) - radians(90);
     icicles.add(new Icicle(x,y,angleToTarget,atkDamage,this));
