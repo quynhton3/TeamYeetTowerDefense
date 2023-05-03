@@ -507,7 +507,7 @@ void mousePressed() {
     mouseClickDeep.rewind();
     mouseClickDeep.play();
   }
-  else {
+  else if (!upgradeButton.hovering) {
     selectedTower = null;
   }
 } // end of MousePressed
