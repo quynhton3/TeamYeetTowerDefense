@@ -29,6 +29,7 @@ int titleTimer = 100;
 
 PImage cloud;
 
+Tower hoveringPlacedTower;
 
 boolean isExisting;
 int money = 500;
@@ -171,15 +172,27 @@ void draw() {
       coins += 30;
     }
   }
-  for (int i = 0; i <towers.size(); i++) {
-    Tower t = towers.get(i);
-    t.update();
-    for (int j = 0; j <enemies.size(); j++) {
-      Enemy e = enemies.get(j);
-      if (e.checkCollision(t)) {
-        //e.hp--;
+  
+  float dist = 100;
+  if (!towers.isEmpty()) {
+    hoveringPlacedTower = towers.get(0);
+    dist = dist(hoveringPlacedTower.x,hoveringPlacedTower.y,mouseX,mouseY);
+    for (int i = 0; i <towers.size(); i++) {
+      Tower t = towers.get(i);
+      t.update();
+      for (int j = 0; j <enemies.size(); j++) {
+        Enemy e = enemies.get(j);
+        if (e.checkCollision(t)) {
+          //e.hp--;
+        }
+        ;
       }
-      ;
+      
+      float newDist = dist(t.x,t.y,mouseX,mouseY);
+      if (hoveringPlacedTower != null && newDist < dist) {
+        hoveringPlacedTower = t;
+        dist = newDist;
+      }
     }
   }
   
@@ -189,10 +202,6 @@ void draw() {
       icicles.remove(i);
     }
   }
-
-
-
-
 
   // DRAW:
   background(TileHelper.isHex ? 0 : 127);
@@ -204,6 +213,16 @@ void draw() {
   }
   for (Tower t : towers) {
     t.draw();
+  }
+  if (dist < 30) {
+    noFill();
+    stroke(255,255,255,150);
+    strokeWeight(1);
+    ellipse(hoveringPlacedTower.x,hoveringPlacedTower.y,80,80);
+    noStroke();
+  }
+  else {
+    hoveringPlacedTower = null;
   }
   
   for (int i = 0; i < icicles.size(); i++) {
