@@ -1,7 +1,7 @@
 class CatIce extends Tower {
 
   float spread = 15;
-  boolean canFreeze = true;
+  boolean canFreeze = false;
   
   CatIce(float x, float y) {
     super(x, y, 3);
@@ -37,10 +37,11 @@ class CatIce extends Tower {
   }
   
   void upgrade() {
+    atkDamage += 5;
+    super.upgrade();
     if (upgradeLevel >= 3) {
       canFreeze = true;
     }
-    super.upgrade();
   }
 }
 
