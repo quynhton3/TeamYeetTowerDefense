@@ -266,7 +266,10 @@ void draw() {
     textAlign(CENTER,CENTER);
     int cost = selectedTower.upgradeLevel * 100;
     fill(coins < cost? 100 : 255);
-    text("Level " + selectedTower.upgradeLevel + 1 + "\n$" + cost,width - 80, height - 60);
+    textSize(20);
+    text("$" + cost,width - 80, height - 55);
+    textSize(12);
+    text("Level " + selectedTower.upgradeLevel + "\nV\nLevel " + (selectedTower.upgradeLevel + 1), width - 170, height - 35);
     textAlign(LEFT,TOP);
   }
 
@@ -495,6 +498,17 @@ void mousePressed() {
     selectedTower = hoveringPlacedTower;
     mouseClick.rewind();
     mouseClick.play();
+  }
+  else if (upgradeButton.hovering && selectedTower != null && coins >= selectedTower.upgradeLevel * 100) {
+    coins -= selectedTower.upgradeLevel * 100;
+    selectedTower.upgrade();
+    camera.rewind();
+    camera.play();
+    mouseClickDeep.rewind();
+    mouseClickDeep.play();
+  }
+  else {
+    selectedTower = null;
   }
 } // end of MousePressed
 void keyPressed() {

@@ -20,6 +20,11 @@ class CatEntropy extends Tower {
   void update() {
     super.update();
   }
+  
+  void upgrade() {
+    atkSpeed *= 0.9;
+    super.upgrade();
+  }
 
   void draw() {
     super.draw();

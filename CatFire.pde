@@ -30,6 +30,11 @@ class CatFire extends Tower {
     noTint();
     super.draw();
   }
+  
+  void upgrade() {
+    atkDamage += 15;
+    super.upgrade();
+  }
 
   //Unique cat code goes here
   void attack() {
